@@ -93,9 +93,9 @@ export function Menu({ onGenerateReceipt, itemList, onAddItem }) {
   const rightItems = itemList.slice(mid);
 
   return (
-    <div className="menu" style={{ maxWidth: "1000px", margin: "0 auto" }}>
-      <h2>Menu</h2>
-      <div style={{ display: "flex", gap: "32px" }}>
+    <div className="menu" style={{ maxWidth: "var(--size-1700)", margin: "0 auto" }}>
+      <h1>Menu</h1>
+      <div style={{ display: "flex", gap: "var(--size-500)" }}>
         <MenuColumn
           items={leftItems}
           startIndex={0}
@@ -109,7 +109,7 @@ export function Menu({ onGenerateReceipt, itemList, onAddItem }) {
           handleQuantityChange={handleQuantityChange}
         />
       </div>
-      <div style={{ marginTop: "24px", display: "flex", gap: "16px" }}>
+      <div style={{ marginTop: "var(--size-500)", display: "flex", gap: "var(--size-400)" }}>
         <label>
           Discount (%):
           <input
@@ -125,50 +125,15 @@ export function Menu({ onGenerateReceipt, itemList, onAddItem }) {
       <button
         className="primary-button"
         onClick={handleGenerateReceipt}
-        style={{ marginTop: "16px" }}
+        style={{ marginTop: "24px" }}
       >
         Generate Receipt
       </button>
-
-      <div style={{ marginTop: "24px" }}>
-        <h3>Add New Item</h3>
-        <form
-          onSubmit={(e) => handleAddItem(e)}
-          style={{ display: "flex", gap: "8px", alignItems: "center" }}
-        >
-          <input
-            name="itemName"
-            type="text"
-            placeholder="Item name"
-            required
-            style={{ width: "160px" }}
-          />
-          <input
-            name="itemPrice"
-            type="number"
-            placeholder="Price"
-            min="1"
-            required
-            style={{ width: "100px" }}
-          />
-          <button type="submit">Add Item</button>
-        </form>
-      </div>
     </div>
   );
 }
 
 function MenuColumn({ items, startIndex, quantities, handleQuantityChange }) {
-  const handleDelete = (globalIndex) => {
-    if (window.confirm("Are you sure you want to delete this item?")) {
-      const updatedItemList =
-        JSON.parse(localStorage.getItem("itemList")) || [];
-      updatedItemList.splice(globalIndex, 1);
-      localStorage.setItem("itemList", JSON.stringify(updatedItemList));
-      window.location.reload();
-    }
-  };
-
   return (
     <table style={{ flex: 1 }}>
       <thead>
@@ -188,8 +153,9 @@ function MenuColumn({ items, startIndex, quantities, handleQuantityChange }) {
                 currency: "IDR",
               })}
             </td>
-            <td style={{ textAlign: "center" }}>
+            <td style={{ minWidth: "90px", textAlign: "center" }}>
               <button
+                className="decrement-button"
                 onClick={() => handleQuantityChange(startIndex + index, -1)}
               >
                 -
@@ -198,17 +164,10 @@ function MenuColumn({ items, startIndex, quantities, handleQuantityChange }) {
                 {quantities[startIndex + index]}
               </span>
               <button
+                className="increment-button"
                 onClick={() => handleQuantityChange(startIndex + index, 1)}
               >
                 +
-              </button>
-            </td>
-            <td>
-              <button
-                onClick={() => handleDelete(startIndex + index)}
-                title="Delete item"
-              >
-                🗑️
               </button>
             </td>
           </tr>
@@ -404,7 +363,7 @@ function Receipt({ purchasedItems, receiptData, onClose }) {
             display: "flex",
             gap: "12px",
             justifyContent: "center",
-            marginTop: "16px",
+            marginTop: "32px",
           }}
         >
           <input
@@ -416,7 +375,7 @@ function Receipt({ purchasedItems, receiptData, onClose }) {
             required
             style={{ width: "140px" }}
           />
-          <button className="primary-button" onClick={handleSendToWhatsApp}>
+          <button className="wa-button" onClick={handleSendToWhatsApp}>
             Send to WhatsApp
           </button>
         </div>

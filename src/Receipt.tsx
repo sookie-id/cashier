@@ -1,14 +1,23 @@
-
-import logo from "./logo.png";
 import html2canvas from "html2canvas";
 import { useRef } from "react";
+import type { ReceiptData } from "./types";
 
-export default function Receipt({ purchasedItems, receiptData, onClose, phone }) {
+export default function Receipt({
+  receiptData,
+  onClose,
+  phone,
+}: {
+  receiptData: ReceiptData;
+  onClose: () => void;
+  phone: string;
+}) {
   const receiptRef = useRef(null);
 
-  const { total, discount, discountAmount, totalAfterDiscount } = receiptData;
+  const { total, discount, discountAmount, totalAfterDiscount, purchasedItems } = receiptData;
 
   const handleSendToWhatsApp = async () => {
+    if (!receiptRef.current) return;
+
     // Export receipt as image
     const canvas = await html2canvas(receiptRef.current, { scale: 2 });
     const imgData = canvas.toDataURL("image/png");
@@ -46,7 +55,7 @@ export default function Receipt({ purchasedItems, receiptData, onClose, phone })
         ref={receiptRef}
       >
         <div style={{ display: "flex", justifyContent: "center" }}>
-          <img src={logo} alt="Logo" style={{ width: "200px" }} />
+          <img src="./logo.png" alt="Logo" style={{ width: "200px" }} />
         </div>
         <div
           style={{

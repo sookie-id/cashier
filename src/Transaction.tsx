@@ -7,11 +7,22 @@ export default function Transaction({
   itemList,
   phone,
   setPhone,
+}: {
+  onGenerateReceipt: (data: {
+    purchasedItems: { name: string; quantity: number; subtotal: number }[];
+    total: number;
+    discount: number;
+    discountAmount: number;
+    totalAfterDiscount: number;
+  }) => void;
+  itemList: { name: string; price: number }[];
+  phone: string;
+  setPhone: (phone: string) => void;
 }) {
   const [quantities, setQuantities] = useState(Array(itemList.length).fill(0));
-  const [discount, setDiscount] = useState(null);
+  const [discount, setDiscount] = useState(0);
 
-  const handleQuantityChange = (index, delta) => {
+  const handleQuantityChange = (index: number, delta: number) => {
     setQuantities((prev) =>
       prev.map((qty, i) => (i === index ? Math.max(0, qty + delta) : qty))
     );
@@ -122,7 +133,17 @@ export default function Transaction({
   );
 }
 
-function MenuColumn({ items, startIndex, quantities, handleQuantityChange }) {
+function MenuColumn({
+  items,
+  startIndex,
+  quantities,
+  handleQuantityChange,
+}: {
+  items: { name: string; price: number }[];
+  startIndex: number;
+  quantities: number[];
+  handleQuantityChange: (index: number, delta: number) => void;
+}) {
   return (
     <table style={{ flex: 1 }}>
       <thead>

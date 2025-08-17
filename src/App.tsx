@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Receipt from "./Receipt";
 import Transaction from "./Transaction";
+import type { ReceiptData } from "./types";
 
 const defaultItemList = [
   { name: "Soft Cookie 1 pcs", price: 20_000 },
@@ -19,7 +20,7 @@ const defaultItemList = [
 ];
 
 export default function App() {
-  const [receiptData, setReceiptData] = useState(null);
+  const [receiptData, setReceiptData] = useState<ReceiptData | null>(null);
   const [phone, setPhone] = useState("");
   const itemList = defaultItemList;
 
@@ -27,7 +28,6 @@ export default function App() {
     <div className="app">
       {receiptData ? (
         <Receipt
-          purchasedItems={receiptData.purchasedItems}
           receiptData={receiptData}
           phone={phone}
           onClose={() => setReceiptData(null)}
@@ -43,4 +43,3 @@ export default function App() {
     </div>
   );
 }
-

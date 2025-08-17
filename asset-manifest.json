@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/cashier/static/css/main.8a7cd506.css",
-    "main.js": "/cashier/static/js/main.b83b4939.js",
+    "main.js": "/cashier/static/js/main.73e7a6b9.js",
     "index.html": "/cashier/index.html",
     "main.8a7cd506.css.map": "/cashier/static/css/main.8a7cd506.css.map",
-    "main.b83b4939.js.map": "/cashier/static/js/main.b83b4939.js.map"
+    "main.73e7a6b9.js.map": "/cashier/static/js/main.73e7a6b9.js.map"
   },
   "entrypoints": [
     "static/css/main.8a7cd506.css",
-    "static/js/main.b83b4939.js"
+    "static/js/main.73e7a6b9.js"
   ]
 }

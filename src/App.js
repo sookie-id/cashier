@@ -2,6 +2,8 @@ import { useState } from "react";
 import logo from "./logo.png";
 import html2canvas from "html2canvas";
 import { useRef } from "react";
+import { useMediaQuery } from "./useMediaQuery";
+import { getCssVar } from "./getCssVar";
 
 const defaultItemList = [
   { name: "Soft Cookie 1 pcs", price: 20_000 },
@@ -21,9 +23,7 @@ const defaultItemList = [
 
 export default function App() {
   const [receiptData, setReceiptData] = useState(null);
-  const [itemList, setItemList] = useState(
-    JSON.parse(localStorage.getItem("itemList")) || defaultItemList
-  );
+  const itemList = defaultItemList;
 
   return (
     <div className="app">
@@ -37,14 +37,13 @@ export default function App() {
         <Menu
           onGenerateReceipt={setReceiptData}
           itemList={itemList}
-          onAddItem={setItemList}
         />
       )}
     </div>
   );
 }
 
-export function Menu({ onGenerateReceipt, itemList, onAddItem }) {
+export function Menu({ onGenerateReceipt, itemList }) {
   const [quantities, setQuantities] = useState(Array(itemList.length).fill(0));
   const [discount, setDiscount] = useState(0);
 
@@ -82,23 +81,49 @@ export function Menu({ onGenerateReceipt, itemList, onAddItem }) {
   const rightItems = itemList.slice(mid);
 
   return (
-    <div className="menu" style={{ maxWidth: "var(--size-1700)", margin: "0 auto" }}>
+    <div
+      className="menu"
+      style={{ maxWidth: "var(--size-1700)", margin: "0 auto" }}
+    >
       <h1>Menu</h1>
-      <div style={{ display: "flex", gap: "var(--size-500)" }}>
-        <MenuColumn
-          items={leftItems}
-          startIndex={0}
-          quantities={quantities}
-          handleQuantityChange={handleQuantityChange}
-        />
-        <MenuColumn
-          items={rightItems}
-          startIndex={mid}
-          quantities={quantities}
-          handleQuantityChange={handleQuantityChange}
-        />
-      </div>
-      <div style={{ marginTop: "var(--size-500)", display: "flex", gap: "var(--size-400)" }}>
+      {useMediaQuery(`(max-width: ${getCssVar("--size-1500")})`) ? (
+        <div
+          style={{
+            display: "flex",
+            gap: "var(--size-500)",
+            justifyContent: "center",
+          }}
+        >
+          <MenuColumn
+            items={itemList}
+            startIndex={0}
+            quantities={quantities}
+            handleQuantityChange={handleQuantityChange}
+          />
+        </div>
+      ) : (
+        <div style={{ display: "flex", gap: "var(--size-500)" }}>
+          <MenuColumn
+            items={leftItems}
+            startIndex={0}
+            quantities={quantities}
+            handleQuantityChange={handleQuantityChange}
+          />
+          <MenuColumn
+            items={rightItems}
+            startIndex={mid}
+            quantities={quantities}
+            handleQuantityChange={handleQuantityChange}
+          />
+        </div>
+      )}
+      <div
+        style={{
+          marginTop: "var(--size-500)",
+          display: "flex",
+          gap: "var(--size-400)",
+        }}
+      >
         <label>
           Discount (%):
           <input

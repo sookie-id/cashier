@@ -98,7 +98,11 @@ h1 {
 
 th,
 td {
-  padding: var(--size-300) var(--size-100);
+  padding: var(--size-300) var(--size-200);
+}
+
+table {
+  max-width: var(--size-1400);
 }
 
 button {

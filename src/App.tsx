@@ -1,45 +1,45 @@
-import { useState } from "react";
+import { useEffect, useState, type JSX } from "react";
 import Receipt from "./Receipt";
 import Transaction from "./Transaction";
-import type { ReceiptData } from "./types";
-
-const defaultItemList = [
-  { name: "Soft Cookie 1 pcs", price: 20_000 },
-  { name: "Soft Cookies 3 pcs", price: 55_000 },
-  { name: "Soft Cookies 6 pcs", price: 100_000 },
-  { name: "Soft Cookies 12 pcs", price: 190_000 },
-  { name: "Tiramisu", price: 35_000 },
-  { name: "Banana Milk", price: 35_000 },
-  { name: "Brookies", price: 18_000 },
-  { name: "Milo Dinosaur", price: 22_000 },
-  { name: "Matcha Latte", price: 28_000 },
-  { name: "Aren Latte", price: 25_000 },
-  { name: "Cold Brew", price: 20_000 },
-  { name: "Kefir", price: 28_000 },
-  { name: "Mineral Water", price: 8_000 },
-];
+import type { Product, ReceiptData } from "./types";
+import { supabase } from "./supabaseClient";
 
 export default function App() {
   const [receiptData, setReceiptData] = useState<ReceiptData | null>(null);
   const [phone, setPhone] = useState("");
-  const itemList = defaultItemList;
+  const [products, setProducts] = useState<Product[] | null>(null);
 
-  return (
-    <div className="app">
-      {receiptData ? (
-        <Receipt
-          receiptData={receiptData}
-          phone={phone}
-          onClose={() => setReceiptData(null)}
-        />
-      ) : (
-        <Transaction
-          onGenerateReceipt={setReceiptData}
-          itemList={itemList}
-          phone={phone}
-          setPhone={setPhone}
-        />
-      )}
-    </div>
-  );
+  useEffect(() => {
+    getProducts();
+  }, []);
+
+  async function getProducts() {
+    const { data } = await supabase.from("products").select();
+    setProducts(data);
+  }
+
+  let content: JSX.Element;
+
+  if (receiptData) {
+    content = (
+      <Receipt
+        receiptData={receiptData}
+        phone={phone}
+        onClose={() => setReceiptData(null)}
+      />
+    );
+  } else if (products) {
+    content = (
+      <Transaction
+        onGenerateReceipt={setReceiptData}
+        itemList={products}
+        phone={phone}
+        setPhone={setPhone}
+      />
+    );
+  } else {
+    content = <p>No products available</p>;
+  }
+
+  return <div className="app">{content}</div>;
 }

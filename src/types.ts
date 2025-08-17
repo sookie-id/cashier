@@ -5,3 +5,9 @@ export type ReceiptData = {
   totalAfterDiscount: number;
   purchasedItems: { name: string; quantity: number; subtotal: number }[];
 };
+
+export type Product = {
+  id: number;
+  name: string;
+  price: number;
+};

@@ -8,6 +8,7 @@ export default function App() {
   const [receiptData, setReceiptData] = useState<ReceiptData | null>(null);
   const [phone, setPhone] = useState("");
   const [products, setProducts] = useState<Product[] | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     getProducts();
@@ -16,11 +17,14 @@ export default function App() {
   async function getProducts() {
     const { data } = await supabase.from("products").select();
     setProducts(data);
+    setIsLoading(false);
   }
 
   let content: JSX.Element;
 
-  if (receiptData) {
+  if (isLoading) {
+    content = <p>Loading...</p>;
+  } else if (receiptData) {
     content = (
       <Receipt
         receiptData={receiptData}

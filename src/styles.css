@@ -132,7 +132,7 @@ button {
 .secondary-button {
   background-color: white;
   border: 1px solid var(--purple-300);
-  color: var(--purple-900);
+  color: var(--purple-800);
 
   &:hover {
     background-color: var(--purple-100);
@@ -187,7 +187,16 @@ p {
 }
 
 @media print {
-  button {
-    display: none !important;
+  body * {
+    visibility: hidden; 
+  }
+
+  .receipt, .receipt * {
+    visibility: visible;
+  }
+
+  .receipt {
+    margin: 0 auto;
+    width: fit-content;
   }
 }

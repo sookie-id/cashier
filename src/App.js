@@ -167,7 +167,7 @@ function MenuColumn({ items, startIndex, quantities, handleQuantityChange }) {
                 currency: "IDR",
               })}
             </td>
-            <td style={{ minWidth: "90px", textAlign: "center" }}>
+            <td style={{ minWidth: "var(--size-900)", textAlign: "center" }}>
               <button
                 className="decrement-button"
                 onClick={() => handleQuantityChange(startIndex + index, -1)}

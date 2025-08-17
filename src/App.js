@@ -76,17 +76,6 @@ export function Menu({ onGenerateReceipt, itemList, onAddItem }) {
     });
   };
 
-  const handleAddItem = (e) => {
-    e.preventDefault();
-    const name = e.target.itemName.value.trim();
-    const price = Number(e.target.itemPrice.value);
-    if (!name || !price || price <= 0) return;
-    const newItemList = [...itemList, { name, price }];
-    onAddItem(newItemList);
-    localStorage.setItem("itemList", JSON.stringify(newItemList));
-    e.target.reset();
-  };
-
   // Split the itemList into two columns
   const mid = Math.ceil(itemList.length / 2);
   const leftItems = itemList.slice(0, mid);

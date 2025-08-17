@@ -13,7 +13,13 @@ export default function Receipt({
 }) {
   const receiptRef = useRef(null);
 
-  const { total, discount, discountAmount, totalAfterDiscount, purchasedItems } = receiptData;
+  const {
+    total,
+    discount,
+    discountAmount,
+    totalAfterDiscount,
+    purchasedItems,
+  } = receiptData;
 
   const handleSendToWhatsApp = async () => {
     if (!receiptRef.current) return;
@@ -191,18 +197,21 @@ export default function Receipt({
             Close
           </button>
         </div>
-        <div
-          style={{
-            display: "flex",
-            gap: "12px",
-            justifyContent: "center",
-            marginTop: "32px",
-          }}
-        >
-          <button className="wa-button" onClick={handleSendToWhatsApp}>
-            Send to WhatsApp
-          </button>
-        </div>
+
+        {phone && (
+          <div
+            style={{
+              display: "flex",
+              gap: "12px",
+              justifyContent: "center",
+              marginTop: "32px",
+            }}
+          >
+            <button className="wa-button" onClick={handleSendToWhatsApp}>
+              Send to WhatsApp
+            </button>
+          </div>
+        )}
       </div>
     </>
   );

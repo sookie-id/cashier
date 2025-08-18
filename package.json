@@ -1,13 +1,12 @@
 {
   "name": "cashier",
   "version": "0.0.0",
-  "main": "/src/index.js",
+  "main": "/src/main.tsx",
   "homepage": "https://sookie-id.github.io/cashier/",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
+    "start": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
@@ -16,14 +15,15 @@
     "html2canvas": "^1.4.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "react-is": "19.1.0",
-    "react-scripts": "^5.0.0"
+    "react-is": "19.1.0"
   },
   "devDependencies": {
     "@types/react": "^19.1.10",
     "@types/react-dom": "^19.1.7",
+    "@vitejs/plugin-react-swc": "^4.0.0",
     "gh-pages": "^6.3.0",
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.2",
+    "vite": "^7.1.2"
   },
   "overrides": {
     "typescript": "^5.9.2"

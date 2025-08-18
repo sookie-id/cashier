@@ -42,7 +42,9 @@
     "moduleDetection": "force",
     "skipLibCheck": true,
 
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+
+    "allowSyntheticDefaultImports": true,
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],
   "exclude": ["node_modules", "build", "dist"]

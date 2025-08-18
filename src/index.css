@@ -188,10 +188,11 @@ p {
 
 @media print {
   body * {
-    visibility: hidden; 
+    visibility: hidden;
   }
 
-  .receipt, .receipt * {
+  .receipt,
+  .receipt * {
     visibility: visible;
   }
 

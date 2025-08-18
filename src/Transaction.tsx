@@ -1,6 +1,6 @@
-import { useMediaQuery } from "./utils/useMediaQuery";
-import { getCssVar } from "./utils/getCssVar";
 import { useState } from "react";
+import { getCssVar } from "./utils/getCssVar";
+import { useMediaQuery } from "./utils/useMediaQuery";
 
 export default function Transaction({
   onGenerateReceipt,

@@ -1,8 +1,8 @@
 import { useEffect, useState, type JSX } from "react";
-import { getProducts } from "./data-access";
+import { getProducts } from "../data-access";
 import Receipt from "./Receipt";
 import Transaction from "./Transaction";
-import type { Product, ReceiptData } from "./types";
+import type { Product, ReceiptData } from "../types";
 
 export default function App() {
   const [receiptData, setReceiptData] = useState<ReceiptData | null>(null);

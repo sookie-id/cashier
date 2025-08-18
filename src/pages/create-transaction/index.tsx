@@ -1,10 +1,11 @@
+import "./index.css";
 import { useEffect, useState, type JSX } from "react";
-import { getProducts } from "../data-access";
+import { getProducts } from "../../data-access";
+import type { Product, ReceiptData } from "../../types";
 import Receipt from "./Receipt";
 import Transaction from "./Transaction";
-import type { Product, ReceiptData } from "../types";
 
-export default function App() {
+export default function CreateTransaction() {
   const [receiptData, setReceiptData] = useState<ReceiptData | null>(null);
   const [phone, setPhone] = useState("");
   const [products, setProducts] = useState<Product[] | null>(null);

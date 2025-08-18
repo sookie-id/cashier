@@ -1,3 +1,7 @@
 export default function Component() {
-  return <h1>Login</h1>;
+  return (
+    <div>
+      <h1>Login</h1>
+    </div>
+  );
 }

@@ -2,7 +2,7 @@ import { useEffect, useState, type JSX } from "react";
 import Receipt from "./Receipt";
 import Transaction from "./Transaction";
 import type { Product, ReceiptData } from "./types";
-import { supabase } from "./supabaseClient";
+import { getProducts } from "./data-access";
 
 export default function App() {
   const [receiptData, setReceiptData] = useState<ReceiptData | null>(null);
@@ -11,14 +11,14 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    getProducts();
-  }, []);
+    const fetchProducts = async () => {
+      const products = await getProducts();
+      setProducts(products);
+      setIsLoading(false);
+    };
 
-  async function getProducts() {
-    const { data } = await supabase.from("products").select();
-    setProducts(data);
-    setIsLoading(false);
-  }
+    fetchProducts();
+  }, []);
 
   let content: JSX.Element;
 

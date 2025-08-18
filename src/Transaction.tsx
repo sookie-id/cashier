@@ -1,5 +1,5 @@
-import { useMediaQuery } from "./useMediaQuery";
-import { getCssVar } from "./getCssVar";
+import { useMediaQuery } from "./utils/useMediaQuery";
+import { getCssVar } from "./utils/getCssVar";
 import { useState } from "react";
 
 export default function Transaction({

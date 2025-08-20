@@ -6,4 +6,5 @@ export default defineConfig({
     outDir: "build",
   },
   plugins: [reactRouter()],
+  base: '/cashier/',
 });

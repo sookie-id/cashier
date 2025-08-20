@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { redirect } from "react-router";
 import FloatingInput from "../../components/FloatingInput";
 import { getSession } from "../../data-access";
 import { login } from "../../workflows/login";
@@ -9,7 +10,7 @@ export async function clientLoader() {
 
   if (session) {
     // already logged in -> go home
-    window.location.href = "/";
+    throw redirect("/");
   }
 }
 

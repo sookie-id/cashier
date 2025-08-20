@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/cashier/static/css/main.8a7cd506.css",
+    "main.js": "/cashier/static/js/main.0ea0523e.js",
+    "index.html": "/cashier/index.html",
+    "main.8a7cd506.css.map": "/cashier/static/css/main.8a7cd506.css.map",
+    "main.0ea0523e.js.map": "/cashier/static/js/main.0ea0523e.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.8a7cd506.css",
+    "static/js/main.0ea0523e.js"
+  ]
+}

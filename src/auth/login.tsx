@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { redirect, useNavigate } from "react-router";
-import FloatingInput from "../../components/FloatingInput";
-import { getSession } from "../../data-access";
-import { login } from "../../workflows/login";
-import "./index.css";
+import FloatingInput from "../shared/components/FloatingInput";
+import { getSession } from "../data-access";
+import { login } from "../workflows/login";
+import "./login.css";
 
 export async function clientLoader() {
   const session = await getSession();

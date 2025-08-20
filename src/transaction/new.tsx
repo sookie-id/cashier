@@ -1,8 +1,8 @@
 import { useEffect, useState, type JSX } from "react";
 import { redirect } from "react-router";
-import { getProducts, getSession } from "../../data-access";
-import type { Product, ReceiptData } from "../../types";
-import "./index.css";
+import { getProducts, getSession } from "../data-access";
+import type { Product, ReceiptData } from "../types";
+import "./new.css";
 import Receipt from "./Receipt";
 import Transaction from "./Transaction";
 

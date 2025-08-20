@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { redirect, useNavigate } from "react-router";
 import FloatingInput from "../../shared/components/FloatingInput";
-import { getSession } from "../persistence/get-session";
+import { userLoggedIn } from "../api/user-logged-in";
 import { login } from "../workflow/login";
 import "./login.css";
 
 export async function clientLoader() {
-  const session = await getSession();
+  const user_logged_in = await userLoggedIn();
 
-  if (session) {
+  if (user_logged_in) {
     // already logged in -> go home
     throw redirect("/");
   }

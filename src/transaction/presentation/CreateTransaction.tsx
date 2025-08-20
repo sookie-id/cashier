@@ -1,15 +1,16 @@
 import { useEffect, useState, type JSX } from "react";
 import { redirect } from "react-router";
-import { getProducts, getSession } from "../../auth/persistence/get-session";
+import { userLoggedIn } from "../../auth/api/user-logged-in";
 import type { Product, ReceiptData } from "../../types";
+import { getProducts } from "../persistence/get-products";
 import Receipt from "./components/Receipt";
 import Transaction from "./components/Transaction";
 import "./create-transaction.css";
 
 export async function clientLoader() {
-  const session = await getSession();
+  const user_logged_in = await userLoggedIn();
 
-  if (!session) {
+  if (!user_logged_in) {
     throw redirect("/login");
   }
 }

@@ -8,7 +8,8 @@
     "build": "rm -rf build && npx react-router build && cp build/client/index.html build/client/404.html",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build/client"
+    "deploy": "gh-pages -d build/client",
+    "test": "jest"
   },
   "dependencies": {
     "@react-router/node": "^7.8.1",
@@ -22,10 +23,14 @@
   },
   "devDependencies": {
     "@react-router/dev": "^7.8.1",
+    "@types/jest": "^30.0.0",
     "@types/react": "^19.1.10",
     "@types/react-dom": "^19.1.7",
     "@vitejs/plugin-react-swc": "^4.0.0",
     "gh-pages": "^6.3.0",
+    "jest": "^30.0.5",
+    "ts-jest": "^29.4.1",
+    "tsarch": "^5.4.1",
     "typescript": "^5.9.2",
     "vite": "^7.1.2"
   },

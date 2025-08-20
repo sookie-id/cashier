@@ -1,11 +1,10 @@
-import { defineConfig } from "vite";
 import { reactRouter } from "@react-router/dev/vite";
+import { defineConfig } from "vite";
 
 export default defineConfig({
   build: {
-    outDir: 'build',
+    outDir: "build",
   },
-  plugins: [
-    reactRouter()
-  ],
+  plugins: [reactRouter()],
+  base: "/cashier",
 });

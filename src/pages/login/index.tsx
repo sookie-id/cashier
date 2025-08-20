@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { redirect } from "react-router";
+import { redirect, useNavigate } from "react-router";
 import FloatingInput from "../../components/FloatingInput";
 import { getSession } from "../../data-access";
 import { login } from "../../workflows/login";
@@ -15,13 +15,15 @@ export async function clientLoader() {
 }
 
 export default function Login() {
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleLogin = async (e: React.MouseEvent) => {
     e.preventDefault();
     await login(email, password);
-    window.location.href = "/";
+    navigate('/');
   };
 
   return (

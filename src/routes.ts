@@ -1,10 +1,7 @@
-import {
-  type RouteConfig,
-  route,
-} from "@react-router/dev/routes";
+import { type RouteConfig, route } from "@react-router/dev/routes";
 
 export default [
-  route("login", "./auth/login.tsx"),
+  route("login", "./auth/presentation/Login.tsx"),
   // * matches all URLs, the ? makes it optional so it will match / as well
-  route("*?", "./transaction/new.tsx"),
+  route("*?", "./transaction/presentation/CreateTransaction.tsx"),
 ] satisfies RouteConfig;

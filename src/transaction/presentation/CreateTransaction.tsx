@@ -1,10 +1,10 @@
 import { useEffect, useState, type JSX } from "react";
 import { redirect } from "react-router";
-import { getProducts, getSession } from "../data-access";
-import type { Product, ReceiptData } from "../types";
-import "./new.css";
-import Receipt from "./Receipt";
-import Transaction from "./Transaction";
+import { getProducts, getSession } from "../../auth/persistence/get-session";
+import type { Product, ReceiptData } from "../../types";
+import Receipt from "./components/Receipt";
+import Transaction from "./components/Transaction";
+import "./create-transaction.css";
 
 export async function clientLoader() {
   const session = await getSession();

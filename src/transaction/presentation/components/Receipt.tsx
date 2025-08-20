@@ -1,6 +1,6 @@
 import html2canvas from "html2canvas";
 import { useRef } from "react";
-import type { ReceiptData } from "../types";
+import type { ReceiptData } from "../../../types";
 import logo from "./logo.png";
 
 export default function Receipt({

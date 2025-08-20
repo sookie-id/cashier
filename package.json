@@ -5,7 +5,7 @@
   "homepage": "https://sookie-id.github.io/cashier/",
   "scripts": {
     "start": "vite",
-    "build": "rm -rf build && npx react-router build",
+    "build": "rm -rf build && npx react-router build && cp build/client/index.html build/client/404.html",
     "preview": "vite preview",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build/client"

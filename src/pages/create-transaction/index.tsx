@@ -1,9 +1,17 @@
 import "./index.css";
 import { useEffect, useState, type JSX } from "react";
-import { getProducts } from "../../data-access";
+import { getProducts, getSession } from "../../data-access";
 import type { Product, ReceiptData } from "../../types";
 import Receipt from "./Receipt";
 import Transaction from "./Transaction";
+
+export async function clientLoader() {
+  const session = await getSession();
+
+  if (!session) {
+    window.location.href = "/login";
+  }
+}
 
 export default function CreateTransaction() {
   const [receiptData, setReceiptData] = useState<ReceiptData | null>(null);

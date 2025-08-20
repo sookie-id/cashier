@@ -1,23 +1,21 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import FloatingInput from "../../components/FloatingInput";
+import { getSession } from "../../data-access";
 import { login } from "../../workflows/login";
 import "./index.css";
-import { getSession } from "../../data-access";
+
+export async function clientLoader() {
+  const session = await getSession();
+
+  if (session) {
+    // already logged in -> go home
+    window.location.href = "/";
+  }
+}
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  // Check for existing session and redirect if present
-  useEffect(() => {
-    const checkSession = async () => {
-      const session = await getSession();
-      if (session) {
-        window.location.href = "/";
-      }
-    };
-    checkSession();
-  }, []);
 
   const handleLogin = async (e: React.MouseEvent) => {
     e.preventDefault();

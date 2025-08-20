@@ -1,6 +1,4 @@
 import { useId } from "react";
-import { ThemeProvider } from "styled-components";
-import { globalTheme } from "../../theme";
 import { InputContainer } from "./OverlappingLabelInput.styled";
 
 export default function OverlappingLabelInput({
@@ -15,16 +13,14 @@ export default function OverlappingLabelInput({
   const id = useId();
 
   return (
-    <ThemeProvider theme={globalTheme}>
-      <InputContainer>
-        <input
-          type={type}
-          id={id}
-          required
-          onChange={(e) => onChange(e.target.value)}
-        />
-        <label htmlFor={id}>{label}</label>
-      </InputContainer>
-    </ThemeProvider>
+    <InputContainer>
+      <input
+        type={type}
+        id={id}
+        required
+        onChange={(e) => onChange(e.target.value)}
+      />
+      <label htmlFor={id}>{label}</label>
+    </InputContainer>
   );
 }

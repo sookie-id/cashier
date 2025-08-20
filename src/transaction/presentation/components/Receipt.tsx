@@ -2,7 +2,14 @@ import html2canvas from "html2canvas";
 import { useRef } from "react";
 import type { ReceiptData } from "../../../types";
 import logo from "./logo.png";
-import { HeaderContainer, ReceiptContainer } from "./Receipt.styled";
+import {
+  DateTimeContainer,
+  FooterContainer,
+  HeaderContainer,
+  ReceiptActionContainer,
+  ReceiptContainer,
+  StyledTable,
+} from "./Receipt.styled";
 
 export default function Receipt({
   receiptData,
@@ -62,42 +69,36 @@ export default function Receipt({
           <img src={logo} alt="Logo" />
           <p>Jl. Kebagusan Raya No. 17, Pasar Minggu, Jakarta Selatan</p>
         </HeaderContainer>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            margin: "16px 10px",
-          }}
-        >
-          <span style={{ fontFamily: "Robotto" }}>
+        <DateTimeContainer>
+          <span>
             {new Date().toLocaleDateString("id-ID", {
               year: "numeric",
               month: "long",
               day: "numeric",
             })}
           </span>
-          <span style={{ fontFamily: "Robotto" }}>
+          <span>
             {new Date().toLocaleTimeString("id-ID", {
               hour: "2-digit",
               minute: "2-digit",
               second: "2-digit",
             })}
           </span>
-        </div>
-        <table style={{ width: "100%", borderCollapse: "collapse" }}>
+        </DateTimeContainer>
+        <StyledTable>
           <thead>
             <tr>
-              <th style={{ textAlign: "left" }}>Item</th>
-              <th style={{ textAlign: "center" }}>Qty</th>
-              <th style={{ textAlign: "right" }}>Subtotal</th>
+              <th>Item</th>
+              <th>Qty</th>
+              <th>Subtotal</th>
             </tr>
           </thead>
           <tbody>
             {purchasedItems.map((item, idx) => (
               <tr key={idx}>
                 <td>{item.name}</td>
-                <td style={{ textAlign: "center" }}>{item.quantity}</td>
-                <td style={{ textAlign: "right" }}>
+                <td>{item.quantity}</td>
+                <td>
                   {item.subtotal.toLocaleString("id-ID", {
                     style: "currency",
                     currency: "IDR",
@@ -106,10 +107,10 @@ export default function Receipt({
               </tr>
             ))}
             <tr>
-              <td colSpan={2} style={{ textAlign: "left", fontWeight: "bold" }}>
+              <td colSpan={2} className="total">
                 Total
               </td>
-              <td style={{ textAlign: "right", fontWeight: "bold" }}>
+              <td className="total">
                 {total.toLocaleString("id-ID", {
                   style: "currency",
                   currency: "IDR",
@@ -119,10 +120,8 @@ export default function Receipt({
             {discount > 0 && (
               <>
                 <tr>
-                  <td colSpan={2} style={{ textAlign: "left" }}>
-                    Discount ({discount}%)
-                  </td>
-                  <td style={{ textAlign: "right", color: "red" }}>
+                  <td colSpan={2}>Discount ({discount}%)</td>
+                  <td className="discount-amount">
                     -
                     {discountAmount.toLocaleString("id-ID", {
                       style: "currency",
@@ -131,13 +130,10 @@ export default function Receipt({
                   </td>
                 </tr>
                 <tr>
-                  <td
-                    colSpan={2}
-                    style={{ textAlign: "left", fontWeight: "bold" }}
-                  >
+                  <td colSpan={2} className="total">
                     Total After Discount
                   </td>
-                  <td style={{ textAlign: "right", fontWeight: "bold" }}>
+                  <td className="total">
                     {totalAfterDiscount.toLocaleString("id-ID", {
                       style: "currency",
                       currency: "IDR",
@@ -147,16 +143,8 @@ export default function Receipt({
               </>
             )}
           </tbody>
-        </table>
-        <div
-          style={{
-            fontFamily: "Robotto",
-            lineHeight: "1.2",
-            margin: "24px 0",
-            textAlign: "center",
-            fontSize: "1.1em",
-          }}
-        >
+        </StyledTable>
+        <FooterContainer>
           <p>
             Terima kasih! Selamat menikmati.
             <br />
@@ -167,12 +155,9 @@ export default function Receipt({
             <br />
             0831 0729 4243 / Instagram: @sookie_id
           </p>
-        </div>
+        </FooterContainer>
       </ReceiptContainer>
-      <div
-        className="receipt-actions"
-        style={{ textAlign: "center", marginTop: "16px" }}
-      >
+      <ReceiptActionContainer>
         <div
           style={{
             display: "flex",
@@ -202,7 +187,7 @@ export default function Receipt({
             </button>
           </div>
         )}
-      </div>
+      </ReceiptActionContainer>
     </>
   );
 }

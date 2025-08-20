@@ -3,7 +3,8 @@ import styled from "styled-components";
 export const ReceiptContainer = styled.div`
   max-width: 250px;
   margin: 0 auto;
-  padding: 30px 0px;
+  padding: ${({ theme }) =>
+    theme.spacing[600] + " " + theme.spacing[300] + " " + theme.spacing[400]};
   font-family: Robotto;
 `;
 
@@ -11,127 +12,64 @@ export const HeaderContainer = styled.div`
   text-align: center;
 
   img {
-    width: 200px;
+    width: ${({ theme }) => theme.spacing[1100]};
   }
 
   p {
-    margin: 16px 0;
+    margin: ${({ theme }) => theme.spacing[400] + " " + theme.spacing[200]};
   }
 `;
 
-// body {
-//     font-family: sans-serif;
-//     margin: var(--size-500);
-//     padding: 0;
-//   }
+export const DateTimeContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin: ${({ theme }) => theme.spacing[400] + " " + theme.spacing[200]};
+`;
 
-//   h1 {
-//     margin-top: 0;
-//     font-size: var(--size-400);
-//   }
+export const StyledTable = styled.table`
+  width: 100%;
+  border-collapse: collapse;
 
-//   th,
-//   td {
-//     padding: var(--size-300) var(--size-200);
-//   }
+  th,
+  td {
+    padding: ${({ theme }) => theme.spacing[200] + " " + theme.spacing[200]};
+  }
 
-//   table {
-//     max-width: var(--size-1400);
-//   }
+  th:first-child,
+  td:first-child {
+    text-align: left;
+  }
 
-//   button {
-//     padding: var(--size-300) var(--size-500);
-//     border: none;
-//     border-radius: var(--size-100);
-//     cursor: pointer;
-//     box-shadow: var(--shadow-100);
+  th:nth-child(2),
+  td:nth-child(2) {
+    text-align: center;
+  }
 
-//     &:active {
-//       box-shadow: var(--shadow-inset);
-//     }
-//   }
+  th:last-child,
+  td:last-child {
+    text-align: right;
+  }
 
-//   .primary-button {
-//     background-color: var(--purple-700);
-//     color: white;
+  td.total {
+    font-weight: bold;
+  }
 
-//     &:hover {
-//       background-color: var(--purple-800);
-//     }
-//     &:active {
-//       background-color: var(--purple-900);
-//     }
-//   }
+  td.discount-amount {
+    color: red;
+  }
+`;
 
-//   .secondary-button {
-//     background-color: white;
-//     border: 1px solid var(--purple-300);
-//     color: var(--purple-800);
+export const FooterContainer = styled.div`
+  line-height: 1.2;
+  margin: 24px 0;
+  text-align: center;
+  font-size: 16px;
+`;
 
-//     &:hover {
-//       background-color: var(--purple-100);
-//     }
-//     &:active {
-//       background-color: var(--purple-200);
-//     }
-//   }
+export const ReceiptActionContainer = styled.div`
+  text-align: center;
 
-//   .increment-button {
-//     padding: var(--size-100) var(--size-200);
-//     background-color: var(--green-100);
-//     width: var(--size-500);
-//     height: var(--size-500);
-
-//     &:hover {
-//       background-color: var(--green-200);
-//     }
-//     &:active {
-//       background-color: var(--green-300);
-//     }
-//   }
-
-//   .decrement-button {
-//     padding: var(--size-100) var(--size-200);
-//     background-color: var(--red-100);
-//     width: var(--size-500);
-//     height: var(--size-500);
-
-//     &:hover {
-//       background-color: var(--red-200);
-//     }
-//     &:active {
-//       background-color: var(--red-300);
-//     }
-//   }
-
-//   .wa-button {
-//     background-color: var(--green-600);
-//     color: white;
-
-//     &:hover {
-//       background-color: var(--green-700);
-//     }
-//     &:active {
-//       background-color: var(--green-800);
-//     }
-//   }
-
-//   p {
-//     font-size: var(--size-400);
-//   }
-
-//   @media print {
-//     body * {
-//       visibility: hidden;
-//     }
-
-//     .receipt,
-//     .receipt * {
-//       visibility: visible;
-//     }
-
-//     .receipt {
-//       margin: 0 auto;
-//       width: fit-content;
-//     }
-//   }
+  @media print {
+    display: none;
+  }
+`;

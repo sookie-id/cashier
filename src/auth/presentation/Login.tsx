@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { redirect, useNavigate } from "react-router";
-import FloatingInput from "../../shared/components/FloatingInput";
+import FloatingInput from "../../shared/components/OverlappingLabelInput";
 import { userLoggedIn } from "../api/user-logged-in";
 import { login } from "../workflow/login";
 import "./login.css";

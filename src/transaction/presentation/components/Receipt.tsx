@@ -2,6 +2,7 @@ import html2canvas from "html2canvas";
 import { useRef } from "react";
 import type { ReceiptData } from "../../../types";
 import logo from "./logo.png";
+import { HeaderContainer, ReceiptContainer } from "./Receipt.styled";
 
 export default function Receipt({
   receiptData,
@@ -56,23 +57,11 @@ export default function Receipt({
 
   return (
     <>
-      <div
-        className="receipt"
-        style={{ maxWidth: "250px", margin: "0 auto", padding: "30px 0px" }}
-        ref={receiptRef}
-      >
-        <div style={{ display: "flex", justifyContent: "center" }}>
-          <img src={logo} alt="Logo" style={{ width: "200px" }} />
-        </div>
-        <div
-          style={{
-            fontFamily: "Robotto",
-            textAlign: "center",
-            margin: "16px 0",
-          }}
-        >
+      <ReceiptContainer ref={receiptRef}>
+        <HeaderContainer>
+          <img src={logo} alt="Logo" />
           <p>Jl. Kebagusan Raya No. 17, Pasar Minggu, Jakarta Selatan</p>
-        </div>
+        </HeaderContainer>
         <div
           style={{
             display: "flex",
@@ -179,7 +168,7 @@ export default function Receipt({
             0831 0729 4243 / Instagram: @sookie_id
           </p>
         </div>
-      </div>
+      </ReceiptContainer>
       <div
         className="receipt-actions"
         style={{ textAlign: "center", marginTop: "16px" }}

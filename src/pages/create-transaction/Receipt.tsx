@@ -1,6 +1,7 @@
 import html2canvas from "html2canvas";
 import { useRef } from "react";
 import type { ReceiptData } from "../../types";
+import logo from "./logo.png";
 
 export default function Receipt({
   receiptData,
@@ -61,7 +62,7 @@ export default function Receipt({
         ref={receiptRef}
       >
         <div style={{ display: "flex", justifyContent: "center" }}>
-          <img src="./logo.png" alt="Logo" style={{ width: "200px" }} />
+          <img src={logo} alt="Logo" style={{ width: "200px" }} />
         </div>
         <div
           style={{

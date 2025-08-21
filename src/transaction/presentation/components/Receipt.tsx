@@ -1,5 +1,10 @@
 import html2canvas from "html2canvas";
 import { useRef } from "react";
+import {
+  PrimaryButton,
+  SecondaryButton,
+  WhatsAppButton,
+} from "../../../shared/components/Button.styled";
 import type { ReceiptData } from "../../../types";
 import logo from "./logo.png";
 import {
@@ -165,12 +170,8 @@ export default function Receipt({
             justifyContent: "center",
           }}
         >
-          <button className="primary-button" onClick={() => window.print()}>
-            Print
-          </button>
-          <button className="secondary-button" onClick={onClose}>
-            Close
-          </button>
+          <PrimaryButton onClick={() => window.print()}>Print</PrimaryButton>
+          <SecondaryButton onClick={onClose}>Close</SecondaryButton>
         </div>
 
         {phone && (
@@ -182,9 +183,9 @@ export default function Receipt({
               marginTop: "32px",
             }}
           >
-            <button className="wa-button" onClick={handleSendToWhatsApp}>
+            <WhatsAppButton onClick={handleSendToWhatsApp}>
               Send to WhatsApp
-            </button>
+            </WhatsAppButton>
           </div>
         )}
       </ReceiptActionContainer>

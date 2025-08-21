@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { getCssVar } from "../../../utils/getCssVar";
+import { useTheme } from "styled-components";
+import { DecrementButton, IncrementButton, PrimaryButton } from "../../../shared/components/Button.styled";
 import { useMediaQuery } from "../../../utils/useMediaQuery";
 
 export default function Transaction({
@@ -21,6 +22,8 @@ export default function Transaction({
 }) {
   const [quantities, setQuantities] = useState(Array(itemList.length).fill(0));
   const [discount, setDiscount] = useState(0);
+
+  const theme = useTheme();
 
   const handleQuantityChange = (index: number, delta: number) => {
     setQuantities((prev) =>
@@ -61,7 +64,7 @@ export default function Transaction({
       style={{ maxWidth: "var(--size-1700)", margin: "0 auto" }}
     >
       <h1>Menu</h1>
-      {useMediaQuery(`(max-width: ${getCssVar("--size-1500")})`) ? (
+      {useMediaQuery(`(max-width: ${theme.spacing[1500]})`) ? (
         <div
           style={{
             display: "flex",
@@ -122,13 +125,12 @@ export default function Transaction({
           />
         </label>
       </div>
-      <button
-        className="primary-button"
+      <PrimaryButton
         onClick={handleGenerateReceipt}
         style={{ marginTop: "var(--size-500)" }}
       >
         Generate Receipt
-      </button>
+      </PrimaryButton>
     </div>
   );
 }
@@ -164,21 +166,19 @@ function MenuColumn({
               })}
             </td>
             <td style={{ minWidth: "var(--size-900)", textAlign: "center" }}>
-              <button
-                className="decrement-button"
+              <DecrementButton
                 onClick={() => handleQuantityChange(startIndex + index, -1)}
               >
                 -
-              </button>
+              </DecrementButton>
               <span style={{ margin: "0 var(--size-200)" }}>
                 {quantities[startIndex + index]}
               </span>
-              <button
-                className="increment-button"
+              <IncrementButton
                 onClick={() => handleQuantityChange(startIndex + index, 1)}
               >
                 +
-              </button>
+              </IncrementButton>
             </td>
           </tr>
         ))}

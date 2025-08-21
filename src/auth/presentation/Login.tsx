@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { redirect, useNavigate } from "react-router";
-import FloatingInput from "../../shared/components/OverlappingLabelInput";
+import { PrimaryButton } from "../../shared/components/Button.styled";
+import Input from "../../shared/components/Input";
 import { userLoggedIn } from "../api/user-logged-in";
 import { login } from "../workflow/login";
 import "./login.css";
@@ -30,19 +31,16 @@ export default function Login() {
     <div className="login-container">
       <h1>Login</h1>
       <form>
-        <FloatingInput label="Email" type="email" onChange={setEmail} />
-        <FloatingInput
+        <Input label="Email" type="email" onChange={setEmail} required />
+        <Input
           label="Password"
           type="password"
           onChange={setPassword}
+          required
         />
-        <button
-          type="submit"
-          className="login-button"
-          onClick={(e) => handleLogin(e)}
-        >
+        <PrimaryButton type="submit" onClick={(e) => handleLogin(e)}>
           Login
-        </button>
+        </PrimaryButton>
       </form>
     </div>
   );

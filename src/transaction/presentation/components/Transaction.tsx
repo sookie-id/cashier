@@ -1,6 +1,11 @@
 import { useState } from "react";
 import { useTheme } from "styled-components";
-import { DecrementButton, IncrementButton, PrimaryButton } from "../../../shared/components/Button.styled";
+import {
+  DecrementButton,
+  IncrementButton,
+  PrimaryButton,
+} from "../../../shared/components/Button.styled";
+import Input from "../../../shared/components/Input";
 import { useMediaQuery } from "../../../utils/useMediaQuery";
 
 export default function Transaction({
@@ -103,27 +108,14 @@ export default function Transaction({
           flexDirection: "column",
         }}
       >
-        <label>
-          Discount (%)
-          <input
-            type="number"
-            min="0"
-            max="100"
-            value={discount}
-            onChange={(e) => setDiscount(Number(e.target.value))}
-            style={{ width: "var(--size-700)", marginLeft: "var(--size-200)" }}
-          />
-        </label>
-        <label>
-          Phone Number
-          <input
-            name="phone"
-            type="tel"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            style={{ width: "var(--size-1000)", marginLeft: "var(--size-200)" }}
-          />
-        </label>
+        <Input
+          label="Discount (%)"
+          type="number"
+          min="0"
+          max="100"
+          onChange={(value) => setDiscount(Number(value))}
+        ></Input>
+        <Input label="Phone Number" type="tel" onChange={setPhone}></Input>
       </div>
       <PrimaryButton
         onClick={handleGenerateReceipt}

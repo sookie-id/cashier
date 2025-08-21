@@ -4,7 +4,7 @@ import { PrimaryButton } from "../../shared/components/Button.styled";
 import Input from "../../shared/components/Input";
 import { userLoggedIn } from "../api/user-logged-in";
 import { login } from "../workflow/login";
-import "./login.css";
+import { LoginContainer } from "./Login.styled";
 
 export async function clientLoader() {
   const user_logged_in = await userLoggedIn();
@@ -28,7 +28,7 @@ export default function Login() {
   };
 
   return (
-    <div className="login-container">
+    <LoginContainer>
       <h1>Login</h1>
       <form>
         <Input label="Email" type="email" onChange={setEmail} required />
@@ -42,6 +42,6 @@ export default function Login() {
           Login
         </PrimaryButton>
       </form>
-    </div>
+    </LoginContainer>
   );
 }

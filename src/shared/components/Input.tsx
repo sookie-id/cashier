@@ -12,7 +12,7 @@ export default function Input({
   const id = useId();
 
   return (
-    <InputContainer>
+    <InputContainer className={props.className}>
       <input id={id} onChange={(e) => onChange(e.target.value)} {...props} />
       <label htmlFor={id}>{label}</label>
     </InputContainer>

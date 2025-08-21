@@ -1,7 +1,7 @@
 import "styled-components";
-import { globalTheme } from "./theme";
+import { appTheme } from "./theme";
 
-type GlobalThemeType = typeof globalTheme;
+type GlobalThemeType = typeof appTheme;
 
 declare module "styled-components" {
   export interface DefaultTheme extends GlobalThemeType {}

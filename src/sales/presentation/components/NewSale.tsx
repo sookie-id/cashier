@@ -5,13 +5,12 @@ import {
   IncrementButton,
   PrimaryButton,
 } from "../../../shared/components/Button.styled";
-import Input from "../../../shared/components/Input";
 import { useMediaQuery } from "../../../utils/useMediaQuery";
+import { H1, StyledInput, Table } from "./NewSale.styled";
 
-export default function Transaction({
+export default function NewSale({
   onGenerateReceipt,
   itemList,
-  phone,
   setPhone,
 }: {
   onGenerateReceipt: (data: {
@@ -22,7 +21,6 @@ export default function Transaction({
     totalAfterDiscount: number;
   }) => void;
   itemList: { name: string; price: number }[];
-  phone: string;
   setPhone: (phone: string) => void;
 }) {
   const [quantities, setQuantities] = useState(Array(itemList.length).fill(0));
@@ -64,11 +62,8 @@ export default function Transaction({
   const rightItems = itemList.slice(mid);
 
   return (
-    <div
-      className="menu"
-      style={{ maxWidth: "var(--size-1700)", margin: "0 auto" }}
-    >
-      <h1>Menu</h1>
+    <div style={{ maxWidth: "var(--size-1700)", margin: "0 auto" }}>
+      <H1>New Sale</H1>
       {useMediaQuery(`(max-width: ${theme.spacing[1500]})`) ? (
         <div
           style={{
@@ -108,14 +103,18 @@ export default function Transaction({
           flexDirection: "column",
         }}
       >
-        <Input
+        <StyledInput
           label="Discount (%)"
           type="number"
           min="0"
           max="100"
           onChange={(value) => setDiscount(Number(value))}
-        ></Input>
-        <Input label="Phone Number" type="tel" onChange={setPhone}></Input>
+        ></StyledInput>
+        <StyledInput
+          label="Phone Number"
+          type="tel"
+          onChange={setPhone}
+        ></StyledInput>
       </div>
       <PrimaryButton
         onClick={handleGenerateReceipt}
@@ -139,7 +138,7 @@ function MenuColumn({
   handleQuantityChange: (index: number, delta: number) => void;
 }) {
   return (
-    <table style={{ flex: 1 }}>
+    <Table>
       <thead>
         <tr>
           <th style={{ textAlign: "left" }}>Name</th>
@@ -175,6 +174,6 @@ function MenuColumn({
           </tr>
         ))}
       </tbody>
-    </table>
+    </Table>
   );
 }

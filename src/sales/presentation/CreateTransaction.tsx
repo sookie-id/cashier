@@ -4,8 +4,7 @@ import { userLoggedIn } from "../../auth/api/user-logged-in";
 import type { Product, ReceiptData } from "../../types";
 import { getProducts } from "../persistence/get-products";
 import Receipt from "./components/Receipt";
-import Transaction from "./components/Transaction";
-import "./create-transaction.css";
+import NewSale from "./components/NewSale";
 
 export async function clientLoader() {
   const user_logged_in = await userLoggedIn();
@@ -45,10 +44,9 @@ export default function CreateTransaction() {
     );
   } else if (products) {
     content = (
-      <Transaction
+      <NewSale
         onGenerateReceipt={setReceiptData}
         itemList={products}
-        phone={phone}
         setPhone={setPhone}
       />
     );

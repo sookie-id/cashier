@@ -49,7 +49,7 @@
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx",
-    "src/transaction/persistence/get-products.ts"
+    "src/sales/persistence/get-products.ts"
   ],
   "exclude": ["node_modules", "build", "dist"]
 }

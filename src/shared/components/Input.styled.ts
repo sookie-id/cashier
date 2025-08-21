@@ -3,12 +3,12 @@ import styled from "styled-components";
 export const InputContainer = styled.div`
   position: relative;
   display: inline-block;
-  width: 300px;
+  width: ${({ theme }) => theme.spacing[1200]};
 
   input {
     width: 100%;
     padding: 16px 12px 6px; /* extra space at top for label */
-    border: 2px solid ${({ theme }) => theme.colors.grey[400]};
+    border: 2px solid ${({ theme }) => theme.color.grey[400]};
     border-radius: 6px;
     font-size: 16px;
     outline: none;
@@ -16,7 +16,7 @@ export const InputContainer = styled.div`
   }
 
   input:focus {
-    border-color: ${({ theme }) => theme.colors.primary1[700]};
+    border-color: ${({ theme }) => theme.color.primary1[700]};
   }
 
   label {
@@ -25,7 +25,7 @@ export const InputContainer = styled.div`
     left: 12px;
     background: white;
     padding: 0 4px;
-    color: ${({ theme }) => theme.colors.grey[900]};
+    color: ${({ theme }) => theme.color.grey[900]};
     font-size: 14px;
     pointer-events: none;
     transition: 0.2s ease all;

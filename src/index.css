@@ -80,7 +80,3 @@
   --size-1700: 896px;
   --size-1800: 1024px;
 }
-
-* {
-  box-sizing: border-box;
-}

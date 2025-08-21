@@ -26,7 +26,7 @@ export const DateTimeContainer = styled.div`
   margin: ${({ theme }) => theme.spacing[400] + " " + theme.spacing[200]};
 `;
 
-export const StyledTable = styled.table`
+export const ReceiptTable = styled.table`
   width: 100%;
   border-collapse: collapse;
 
@@ -73,3 +73,13 @@ export const ReceiptActionContainer = styled.div`
     display: none;
   }
 `;
+
+export const ButtonContainer = styled.div`
+  display: flex;
+  gap: ${({ theme }) => theme.spacing[300]};
+  justify-content: center;
+`;
+
+export const WhatsAppButtonContainer = styled.div`
+  margin-top: ${({theme}) => theme.spacing[600]}
+`

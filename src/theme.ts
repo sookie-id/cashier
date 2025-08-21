@@ -1,7 +1,5 @@
-import type { DefaultTheme } from "styled-components/dist/types";
-
-export const globalTheme = {
-  colors: {
+export const appTheme = {
+  color: {
     primary1: {
       1000: "hsl(263, 85%, 18%)",
       900: "hsl(262, 72%, 25%)",
@@ -63,7 +61,7 @@ export const globalTheme = {
       100: "hsl(152, 68%, 96%)",
     },
   },
-  shadows: {
+  shadow: {
     inset: "inset 0 2px 2px hsla(0, 0%, 0%, 0.1)",
     100: "0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)",
     200: "0 3px 6px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.12)",

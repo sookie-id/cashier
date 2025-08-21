@@ -8,12 +8,14 @@ import {
 import type { ReceiptData } from "../../../types";
 import logo from "./logo.png";
 import {
+  ButtonContainer,
   DateTimeContainer,
   FooterContainer,
   HeaderContainer,
   ReceiptActionContainer,
   ReceiptContainer,
-  StyledTable,
+  ReceiptTable,
+  WhatsAppButtonContainer,
 } from "./Receipt.styled";
 
 export default function Receipt({
@@ -90,7 +92,7 @@ export default function Receipt({
             })}
           </span>
         </DateTimeContainer>
-        <StyledTable>
+        <ReceiptTable>
           <thead>
             <tr>
               <th>Item</th>
@@ -148,7 +150,7 @@ export default function Receipt({
               </>
             )}
           </tbody>
-        </StyledTable>
+        </ReceiptTable>
         <FooterContainer>
           <p>
             Terima kasih! Selamat menikmati.
@@ -163,30 +165,17 @@ export default function Receipt({
         </FooterContainer>
       </ReceiptContainer>
       <ReceiptActionContainer>
-        <div
-          style={{
-            display: "flex",
-            gap: "12px",
-            justifyContent: "center",
-          }}
-        >
+        <ButtonContainer>
           <PrimaryButton onClick={() => window.print()}>Print</PrimaryButton>
           <SecondaryButton onClick={onClose}>Close</SecondaryButton>
-        </div>
+        </ButtonContainer>
 
         {phone && (
-          <div
-            style={{
-              display: "flex",
-              gap: "12px",
-              justifyContent: "center",
-              marginTop: "32px",
-            }}
-          >
+          <WhatsAppButtonContainer>
             <WhatsAppButton onClick={handleSendToWhatsApp}>
               Send to WhatsApp
             </WhatsAppButton>
-          </div>
+          </WhatsAppButtonContainer>
         )}
       </ReceiptActionContainer>
     </>

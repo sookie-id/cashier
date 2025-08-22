@@ -3,10 +3,19 @@ import { useTheme } from "styled-components";
 import {
   DecrementButton,
   IncrementButton,
-  PrimaryButton,
 } from "../../../shared/components/Button.styled";
 import { useMediaQuery } from "../../../utils/useMediaQuery";
-import { H1, StyledInput, Table } from "./NewSale.styled";
+import {
+  DoubleColumnMenuContainer,
+  H1,
+  InputContainer,
+  MenuTable,
+  PageContainer,
+  QuantitySpan,
+  SingleColumnMenuContainer,
+  StyledInput,
+  SubmitButton,
+} from "./NewSale.styled";
 
 export default function NewSale({
   onGenerateReceipt,
@@ -62,25 +71,19 @@ export default function NewSale({
   const rightItems = itemList.slice(mid);
 
   return (
-    <div style={{ maxWidth: "var(--size-1700)", margin: "0 auto" }}>
+    <PageContainer>
       <H1>New Sale</H1>
       {useMediaQuery(`(max-width: ${theme.spacing[1500]})`) ? (
-        <div
-          style={{
-            display: "flex",
-            gap: "var(--size-500)",
-            justifyContent: "center",
-          }}
-        >
+        <SingleColumnMenuContainer>
           <MenuColumn
             items={itemList}
             startIndex={0}
             quantities={quantities}
             handleQuantityChange={handleQuantityChange}
           />
-        </div>
+        </SingleColumnMenuContainer>
       ) : (
-        <div style={{ display: "flex", gap: "var(--size-500)" }}>
+        <DoubleColumnMenuContainer>
           <MenuColumn
             items={leftItems}
             startIndex={0}
@@ -93,16 +96,9 @@ export default function NewSale({
             quantities={quantities}
             handleQuantityChange={handleQuantityChange}
           />
-        </div>
+        </DoubleColumnMenuContainer>
       )}
-      <div
-        style={{
-          marginTop: "var(--size-500)",
-          display: "flex",
-          gap: "var(--size-600)",
-          flexDirection: "column",
-        }}
-      >
+      <InputContainer>
         <StyledInput
           label="Discount (%)"
           type="number"
@@ -115,14 +111,11 @@ export default function NewSale({
           type="tel"
           onChange={setPhone}
         ></StyledInput>
-      </div>
-      <PrimaryButton
-        onClick={handleGenerateReceipt}
-        style={{ marginTop: "var(--size-500)" }}
-      >
+      </InputContainer>
+      <SubmitButton onClick={handleGenerateReceipt} type="submit">
         Generate Receipt
-      </PrimaryButton>
-    </div>
+      </SubmitButton>
+    </PageContainer>
   );
 }
 
@@ -138,33 +131,31 @@ function MenuColumn({
   handleQuantityChange: (index: number, delta: number) => void;
 }) {
   return (
-    <Table>
+    <MenuTable>
       <thead>
         <tr>
-          <th style={{ textAlign: "left" }}>Name</th>
-          <th style={{ textAlign: "right" }}>Price</th>
-          <th style={{ textAlign: "center" }}>Quantity</th>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Quantity</th>
         </tr>
       </thead>
       <tbody>
         {items.map((item, index) => (
           <tr key={startIndex + index}>
             <td>{item.name}</td>
-            <td style={{ textAlign: "right" }}>
+            <td>
               {item.price.toLocaleString("id-ID", {
                 style: "currency",
                 currency: "IDR",
               })}
             </td>
-            <td style={{ minWidth: "var(--size-900)", textAlign: "center" }}>
+            <td>
               <DecrementButton
                 onClick={() => handleQuantityChange(startIndex + index, -1)}
               >
                 -
               </DecrementButton>
-              <span style={{ margin: "0 var(--size-200)" }}>
-                {quantities[startIndex + index]}
-              </span>
+              <QuantitySpan>{quantities[startIndex + index]}</QuantitySpan>
               <IncrementButton
                 onClick={() => handleQuantityChange(startIndex + index, 1)}
               >
@@ -174,6 +165,6 @@ function MenuColumn({
           </tr>
         ))}
       </tbody>
-    </Table>
+    </MenuTable>
   );
 }

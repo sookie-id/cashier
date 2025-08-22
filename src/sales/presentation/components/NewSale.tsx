@@ -109,7 +109,7 @@ export default function NewSale({
           ></Input>
           <Input label="Phone Number" type="tel" onChange={setPhone}></Input>
         </InputContainer>
-        <SubmitButton type="submit">Generate Receipt</SubmitButton>
+        <SubmitButton type="submit">Create Sale</SubmitButton>
       </form>
     </PageContainer>
   );

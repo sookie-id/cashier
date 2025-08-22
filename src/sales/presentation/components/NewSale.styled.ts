@@ -3,8 +3,12 @@ import { PrimaryButton } from "../../../shared/components/Button.styled";
 import Input from "../../../shared/components/Input";
 
 export const PageContainer = styled.div`
-  max-width: ${({ theme }) => theme.spacing[1700]};
+  max-width: ${({ theme }) => theme.spacing[1600]};
   margin: 0 auto;
+
+  @media (max-width: ${({ theme }) => theme.spacing[1600]}) {
+    max-width: ${({ theme }) => theme.spacing[1300]};
+  }
 `;
 
 export const SingleColumnMenuContainer = styled.div`
@@ -16,11 +20,11 @@ export const SingleColumnMenuContainer = styled.div`
 export const DoubleColumnMenuContainer = styled.div`
   display: flex;
   gap: ${({ theme }) => theme.spacing[500]};
+  justify-content: space-between;
 `;
 
 export const MenuTable = styled.table`
   max-width: ${({ theme }) => theme.spacing[1400]};
-  flex: 1;
 
   th,
   td {
@@ -30,6 +34,7 @@ export const MenuTable = styled.table`
   th:first-child,
   td:first-child {
     text-align: left;
+    padding-left: 0;
   }
 
   th:nth-child(2),
@@ -39,13 +44,22 @@ export const MenuTable = styled.table`
 
   th:last-child,
   td:last-child {
-    text-align: right;
-    min-width: ${({ theme }) => theme.spacing[900]};
+    text-align: center;
+    padding-right: 0;
   }
 `;
 
+export const QuantityControlContainer = styled.div`
+  display: flex;
+  justify-content: right;
+`;
+
 export const QuantitySpan = styled.span`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin: 0 ${({ theme }) => theme.spacing[200]};
+  min-width: ${({ theme }) => theme.spacing[500]};
 `;
 
 export const H1 = styled.h1`

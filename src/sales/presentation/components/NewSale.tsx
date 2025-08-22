@@ -11,6 +11,7 @@ import {
   InputContainer,
   MenuTable,
   PageContainer,
+  QuantityControlContainer,
   QuantitySpan,
   SingleColumnMenuContainer,
   StyledInput,
@@ -43,7 +44,8 @@ export default function NewSale({
     );
   };
 
-  const handleGenerateReceipt = () => {
+  const handleGenerateReceipt = (e: React.FormEvent) => {
+    e.preventDefault();
     const purchasedItems = itemList
       .map((item, i) => ({
         ...item,
@@ -73,7 +75,7 @@ export default function NewSale({
   return (
     <PageContainer>
       <H1>New Sale</H1>
-      {useMediaQuery(`(max-width: ${theme.spacing[1500]})`) ? (
+      {useMediaQuery(`(max-width: ${theme.spacing[1600]})`) ? (
         <SingleColumnMenuContainer>
           <MenuColumn
             items={itemList}
@@ -98,23 +100,23 @@ export default function NewSale({
           />
         </DoubleColumnMenuContainer>
       )}
-      <InputContainer>
-        <StyledInput
-          label="Discount (%)"
-          type="number"
-          min="0"
-          max="100"
-          onChange={(value) => setDiscount(Number(value))}
-        ></StyledInput>
-        <StyledInput
-          label="Phone Number"
-          type="tel"
-          onChange={setPhone}
-        ></StyledInput>
-      </InputContainer>
-      <SubmitButton onClick={handleGenerateReceipt} type="submit">
-        Generate Receipt
-      </SubmitButton>
+      <form onSubmit={handleGenerateReceipt}>
+        <InputContainer>
+          <StyledInput
+            label="Discount (%)"
+            type="number"
+            min="0"
+            max="100"
+            onChange={(value) => setDiscount(Number(value))}
+          ></StyledInput>
+          <StyledInput
+            label="Phone Number"
+            type="tel"
+            onChange={setPhone}
+          ></StyledInput>
+        </InputContainer>
+        <SubmitButton type="submit">Generate Receipt</SubmitButton>
+      </form>
     </PageContainer>
   );
 }
@@ -150,17 +152,19 @@ function MenuColumn({
               })}
             </td>
             <td>
-              <DecrementButton
-                onClick={() => handleQuantityChange(startIndex + index, -1)}
-              >
-                -
-              </DecrementButton>
-              <QuantitySpan>{quantities[startIndex + index]}</QuantitySpan>
-              <IncrementButton
-                onClick={() => handleQuantityChange(startIndex + index, 1)}
-              >
-                +
-              </IncrementButton>
+              <QuantityControlContainer>
+                <DecrementButton
+                  onClick={() => handleQuantityChange(startIndex + index, -1)}
+                >
+                  -
+                </DecrementButton>
+                <QuantitySpan>{quantities[startIndex + index]}</QuantitySpan>
+                <IncrementButton
+                  onClick={() => handleQuantityChange(startIndex + index, 1)}
+                >
+                  +
+                </IncrementButton>
+              </QuantityControlContainer>
             </td>
           </tr>
         ))}

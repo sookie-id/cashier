@@ -19,14 +19,14 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = async (e: React.MouseEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     await login(email, password);
     navigate("/");
   };
 
   return (
-    <form>
+    <form onSubmit={handleLogin}>
       <LoginContainer>
         <H1>Login</H1>
         <StyledInput label="Email" type="email" onChange={setEmail} required />
@@ -36,9 +36,7 @@ export default function Login() {
           onChange={setPassword}
           required
         />
-        <LoginButton type="submit" onClick={(e) => handleLogin(e)}>
-          Login
-        </LoginButton>
+        <LoginButton type="submit">Login</LoginButton>
       </LoginContainer>
     </form>
   );

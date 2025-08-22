@@ -1,7 +1,6 @@
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
 import { ThemeProvider } from "styled-components";
 import { GlobalStyle } from "./GlobalStyle";
-import "./index.css";
 import { appTheme } from "./theme";
 
 export function Layout({ children }: { children: React.ReactNode }) {

@@ -1,10 +1,8 @@
 import { useState } from "react";
 import { redirect, useNavigate } from "react-router";
-import { PrimaryButton } from "../../shared/components/Button.styled";
-import Input from "../../shared/components/Input";
 import { userLoggedIn } from "../api/user-logged-in";
 import { login } from "../workflow/login";
-import { LoginContainer } from "./Login.styled";
+import { H1, LoginButton, LoginContainer, StyledInput } from "./Login.styled";
 
 export async function clientLoader() {
   const user_logged_in = await userLoggedIn();
@@ -28,20 +26,20 @@ export default function Login() {
   };
 
   return (
-    <LoginContainer>
-      <h1>Login</h1>
-      <form>
-        <Input label="Email" type="email" onChange={setEmail} required />
-        <Input
+    <form>
+      <LoginContainer>
+        <H1>Login</H1>
+        <StyledInput label="Email" type="email" onChange={setEmail} required />
+        <StyledInput
           label="Password"
           type="password"
           onChange={setPassword}
           required
         />
-        <PrimaryButton type="submit" onClick={(e) => handleLogin(e)}>
+        <LoginButton type="submit" onClick={(e) => handleLogin(e)}>
           Login
-        </PrimaryButton>
-      </form>
-    </LoginContainer>
+        </LoginButton>
+      </LoginContainer>
+    </form>
   );
 }

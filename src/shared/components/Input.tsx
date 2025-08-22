@@ -1,5 +1,5 @@
 import { useId } from "react";
-import { InputContainer } from "./Input.styled";
+import { InputContainer, Label, StyledInput } from "./Input.styled";
 
 export default function Input({
   label,
@@ -13,8 +13,12 @@ export default function Input({
 
   return (
     <InputContainer className={props.className}>
-      <input id={id} onChange={(e) => onChange(e.target.value)} {...props} />
-      <label htmlFor={id}>{label}</label>
+      <StyledInput
+        id={id}
+        onChange={(e) => onChange(e.target.value)}
+        {...props}
+      />
+      <Label htmlFor={id}>{label}</Label>
     </InputContainer>
   );
 }

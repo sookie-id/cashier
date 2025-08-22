@@ -1,23 +1,29 @@
 import styled from "styled-components";
 import { PrimaryButton } from "../../../shared/components/Button.styled";
-import Input from "../../../shared/components/Input";
 
 export const PageContainer = styled.div`
   max-width: ${({ theme }) => theme.spacing[1600]};
   margin: 0 auto;
+  background: white;
+  padding: ${({ theme }) => theme.spacing[600]};
+  box-sizing: content-box;
+  border-radius: ${({ theme }) => theme.spacing[100]};
 
   @media (max-width: ${({ theme }) => theme.spacing[1600]}) {
     max-width: ${({ theme }) => theme.spacing[1300]};
   }
 `;
 
-export const SingleColumnMenuContainer = styled.div`
+const MenuContainer = styled.div`
   display: flex;
   gap: ${({ theme }) => theme.spacing[500]};
+`;
+
+export const SingleColumnMenuContainer = styled(MenuContainer)`
   justify-content: center;
 `;
 
-export const DoubleColumnMenuContainer = styled.div`
+export const DoubleColumnMenuContainer = styled(MenuContainer)`
   display: flex;
   gap: ${({ theme }) => theme.spacing[500]};
   justify-content: space-between;
@@ -29,6 +35,12 @@ export const MenuTable = styled.table`
   th,
   td {
     padding: ${({ theme }) => theme.spacing[300] + " " + theme.spacing[200]};
+  }
+
+  tr:first-child {
+    td {
+      padding-top: 0;
+    }
   }
 
   th:first-child,
@@ -60,18 +72,6 @@ export const QuantitySpan = styled.span`
   justify-content: center;
   margin: 0 ${({ theme }) => theme.spacing[200]};
   min-width: ${({ theme }) => theme.spacing[500]};
-`;
-
-export const H1 = styled.h1`
-  margin-top: 0;
-  font-size: ${({ theme }) => theme.spacing[400]};
-`;
-
-export const StyledInput = styled(Input)`
-  input,
-  label {
-    background: ${({ theme }) => theme.color.grey[100]};
-  }
 `;
 
 export const InputContainer = styled.div`

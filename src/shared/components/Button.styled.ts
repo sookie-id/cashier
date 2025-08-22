@@ -6,6 +6,7 @@ export const Button = styled.button`
   border-radius: ${({ theme }) => theme.spacing[100]};
   cursor: pointer;
   box-shadow: ${({ theme }) => theme.shadow[100]};
+  font-size: ${({ theme }) => theme.spacing[400]};
 
   &:active {
     box-shadow: ${({ theme }) => theme.shadow.inset};

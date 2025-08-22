@@ -1,4 +1,11 @@
-import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
+import {
+  Links,
+  Meta,
+  NavLink,
+  Outlet,
+  Scripts,
+  ScrollRestoration,
+} from "react-router";
 import { ThemeProvider } from "styled-components";
 import { GlobalStyle } from "./GlobalStyle";
 import { appTheme } from "./theme";
@@ -22,6 +29,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <body>
         <ThemeProvider theme={appTheme}>
           <GlobalStyle />
+          <nav>
+            <NavLink to="/">New Sale</NavLink>
+            <NavLink to="/sales">Sales</NavLink>
+            <NavLink to="/customers">Customers</NavLink>
+            <NavLink to="/menu">Menu</NavLink>
+          </nav>
           {children}
         </ThemeProvider>
         <ScrollRestoration />

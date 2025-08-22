@@ -7,16 +7,15 @@ import {
 import { useMediaQuery } from "../../../utils/useMediaQuery";
 import {
   DoubleColumnMenuContainer,
-  H1,
   InputContainer,
   MenuTable,
   PageContainer,
   QuantityControlContainer,
   QuantitySpan,
   SingleColumnMenuContainer,
-  StyledInput,
   SubmitButton,
 } from "./NewSale.styled";
+import Input from "../../../shared/components/Input";
 
 export default function NewSale({
   onGenerateReceipt,
@@ -74,7 +73,6 @@ export default function NewSale({
 
   return (
     <PageContainer>
-      <H1>New Sale</H1>
       {useMediaQuery(`(max-width: ${theme.spacing[1600]})`) ? (
         <SingleColumnMenuContainer>
           <MenuColumn
@@ -102,18 +100,14 @@ export default function NewSale({
       )}
       <form onSubmit={handleGenerateReceipt}>
         <InputContainer>
-          <StyledInput
+          <Input
             label="Discount (%)"
             type="number"
             min="0"
             max="100"
             onChange={(value) => setDiscount(Number(value))}
-          ></StyledInput>
-          <StyledInput
-            label="Phone Number"
-            type="tel"
-            onChange={setPhone}
-          ></StyledInput>
+          ></Input>
+          <Input label="Phone Number" type="tel" onChange={setPhone}></Input>
         </InputContainer>
         <SubmitButton type="submit">Generate Receipt</SubmitButton>
       </form>
@@ -134,13 +128,6 @@ function MenuColumn({
 }) {
   return (
     <MenuTable>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Price</th>
-          <th>Quantity</th>
-        </tr>
-      </thead>
       <tbody>
         {items.map((item, index) => (
           <tr key={startIndex + index}>

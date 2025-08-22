@@ -61,9 +61,9 @@ export const ReceiptTable = styled.table`
 
 export const FooterContainer = styled.div`
   line-height: 1.2;
-  margin: 24px 0;
+  margin: ${({theme}) => theme.spacing[500]} 0;
   text-align: center;
-  font-size: 16px;
+  font-size: ${({theme}) => theme.spacing[400]};
 `;
 
 export const ReceiptActionContainer = styled.div`

@@ -7,4 +7,7 @@ export default defineConfig({
   },
   plugins: [reactRouter()],
   base: '/cashier/',
+  ssr: {
+    noExternal: ['styled-components'],
+  },
 });

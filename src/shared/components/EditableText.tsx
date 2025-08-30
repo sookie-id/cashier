@@ -37,7 +37,9 @@ function EditableText({
     event
   ) => {
     setIsEditing(false);
-    onSave(event.target.value);
+    if (event.target.value != props.value) {
+      onSave(event.target.value);
+    }
   };
 
   const handleKeyPress: React.KeyboardEventHandler<HTMLInputElement> = (
@@ -48,7 +50,7 @@ function EditableText({
     }
   };
 
-  const handleChange = (newValue: string) => {
+  const handleChange = (newValue: string): void => {
     setValue(newValue);
   };
 

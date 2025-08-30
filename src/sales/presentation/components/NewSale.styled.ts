@@ -21,12 +21,18 @@ const MenuContainer = styled.div`
 
 export const SingleColumnMenuContainer = styled(MenuContainer)`
   justify-content: center;
+  @media (width > ${({theme}) => theme.spacing[1600]}) {
+    display: none
+  }
 `;
 
 export const DoubleColumnMenuContainer = styled(MenuContainer)`
   display: flex;
   gap: ${({ theme }) => theme.spacing[500]};
   justify-content: space-between;
+  @media (max-width: ${({theme}) => theme.spacing[1600]}) {
+    display: none
+  }
 `;
 
 export const MenuTable = styled.table`

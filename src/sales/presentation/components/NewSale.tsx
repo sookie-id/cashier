@@ -4,7 +4,7 @@ import {
   DecrementButton,
   IncrementButton,
 } from "../../../shared/components/Button.styled";
-import { useMediaQuery } from "../../../utils/useMediaQuery";
+import Input from "../../../shared/components/Input";
 import {
   DoubleColumnMenuContainer,
   InputContainer,
@@ -15,7 +15,6 @@ import {
   SingleColumnMenuContainer,
   SubmitButton,
 } from "./NewSale.styled";
-import Input from "../../../shared/components/Input";
 
 export default function NewSale({
   onGenerateReceipt,
@@ -73,31 +72,28 @@ export default function NewSale({
 
   return (
     <PageContainer>
-      {useMediaQuery(`(max-width: ${theme.spacing[1600]})`) ? (
-        <SingleColumnMenuContainer>
-          <MenuColumn
-            items={itemList}
-            startIndex={0}
-            quantities={quantities}
-            handleQuantityChange={handleQuantityChange}
-          />
-        </SingleColumnMenuContainer>
-      ) : (
-        <DoubleColumnMenuContainer>
-          <MenuColumn
-            items={leftItems}
-            startIndex={0}
-            quantities={quantities}
-            handleQuantityChange={handleQuantityChange}
-          />
-          <MenuColumn
-            items={rightItems}
-            startIndex={mid}
-            quantities={quantities}
-            handleQuantityChange={handleQuantityChange}
-          />
-        </DoubleColumnMenuContainer>
-      )}
+      <SingleColumnMenuContainer>
+        <MenuColumn
+          items={itemList}
+          startIndex={0}
+          quantities={quantities}
+          handleQuantityChange={handleQuantityChange}
+        />
+      </SingleColumnMenuContainer>
+      <DoubleColumnMenuContainer>
+        <MenuColumn
+          items={leftItems}
+          startIndex={0}
+          quantities={quantities}
+          handleQuantityChange={handleQuantityChange}
+        />
+        <MenuColumn
+          items={rightItems}
+          startIndex={mid}
+          quantities={quantities}
+          handleQuantityChange={handleQuantityChange}
+        />
+      </DoubleColumnMenuContainer>
       <form onSubmit={handleGenerateReceipt}>
         <InputContainer>
           <Input

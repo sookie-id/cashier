@@ -2,12 +2,12 @@ import { useLayoutEffect, useRef, useState } from "react";
 import { P, StyledInput } from "./EditableText.styled";
 
 function EditableText({
-  onChange,
   formatDisplayValue,
+  onSave,
   ...props
-}: Omit<React.InputHTMLAttributes<HTMLInputElement>, "onChange"> & {
-  onChange: (value: string) => void;
+}: React.InputHTMLAttributes<HTMLInputElement> & {
   formatDisplayValue?: (value: string) => string;
+  onSave: (value: string) => void;
   value: string;
 }) {
   const [isEditing, setIsEditing] = useState(false);
@@ -33,8 +33,11 @@ function EditableText({
     }, 0);
   };
 
-  const handleInputBlur: React.FocusEventHandler<HTMLInputElement> = () => {
+  const handleInputBlur: React.FocusEventHandler<HTMLInputElement> = (
+    event
+  ) => {
     setIsEditing(false);
+    onSave(event.target.value);
   };
 
   const handleKeyPress: React.KeyboardEventHandler<HTMLInputElement> = (
@@ -47,7 +50,6 @@ function EditableText({
 
   const handleChange = (newValue: string) => {
     setValue(newValue);
-    onChange(value);
   };
 
   return (

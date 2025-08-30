@@ -3,6 +3,8 @@ import EditableText from "../../shared/components/EditableText";
 import Input from "../../shared/components/Input";
 import { getProducts } from "../api/get-products";
 import { addProduct } from "../workflow/add-product";
+import { updateProductName } from "../workflow/update-product-name";
+import { updateProductPrice } from "../workflow/update-product-price";
 import {
   DoubleColumnMenuContainer,
   H1,
@@ -80,7 +82,7 @@ function MenuColumn({
   items,
   startIndex,
 }: {
-  items: { name: string; price: number }[];
+  items: Product[];
   startIndex: number;
 }) {
   return (
@@ -90,13 +92,23 @@ function MenuColumn({
           <tr key={startIndex + index}>
             <td>
               <EditableText
-                onChange={() => {}}
+                onSave={(name: string) =>
+                  updateProductName({
+                    id: item.id,
+                    name,
+                  })
+                }
                 value={item.name}
               ></EditableText>
             </td>
             <td>
               <EditableText
-                onChange={() => {}}
+                onSave={(price: string) =>
+                  updateProductPrice({
+                    id: item.id,
+                    price: Number(price),
+                  })
+                }
                 type="number"
                 formatDisplayValue={(value: string) =>
                   Number(value).toLocaleString("id-ID", {

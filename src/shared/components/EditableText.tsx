@@ -50,8 +50,8 @@ function EditableText({
     }
   };
 
-  const handleChange = (newValue: string): void => {
-    setValue(newValue);
+  const handleChangeValue = (value: string): void => {
+    setValue(value);
   };
 
   return (
@@ -60,7 +60,7 @@ function EditableText({
         <StyledInput
           label=""
           ref={inputRef}
-          onChange={handleChange}
+          onChangeValue={handleChangeValue}
           onBlur={handleInputBlur}
           onKeyDown={handleKeyPress}
           {...props}

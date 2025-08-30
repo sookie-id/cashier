@@ -29,11 +29,16 @@ export default function Login() {
     <form onSubmit={handleLogin}>
       <LoginContainer>
         <H1>Login</H1>
-        <StyledInput label="Email" type="email" onChange={setEmail} required />
+        <StyledInput
+          label="Email"
+          type="email"
+          onChangeValue={setEmail}
+          required
+        />
         <StyledInput
           label="Password"
           type="password"
-          onChange={setPassword}
+          onChangeValue={setPassword}
           required
         />
         <LoginButton type="submit">Login</LoginButton>

@@ -60,7 +60,7 @@ export default function Menu() {
           <Input
             label="Product Name"
             type="text"
-            onChange={setProductName}
+            onChangeValue={setProductName}
             required
           ></Input>
           <Input
@@ -68,7 +68,7 @@ export default function Menu() {
             type="number"
             min="0"
             step="1000"
-            onChange={(value) => setPrice(Number(value))}
+            onChangeValue={(value) => setPrice(Number(value))}
             required
           ></Input>
         </InputContainer>

@@ -3,12 +3,12 @@ import { InputContainer, Label, StyledInput } from "./Input.styled";
 
 export default function Input({
   label,
-  onChange,
+  onChangeValue: onChangeValue,
   ref,
   ...props
 }: Omit<React.InputHTMLAttributes<HTMLInputElement>, "onChange"> & {
   label: string;
-  onChange: (value: string) => void;
+  onChangeValue: (value: string) => void;
   ref?: React.Ref<HTMLInputElement>;
 }) {
   const id = useId();
@@ -17,7 +17,7 @@ export default function Input({
     <InputContainer className={props.className}>
       <StyledInput
         id={id}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={(e) => onChangeValue(e.target.value)}
         ref={ref}
         {...props}
       />

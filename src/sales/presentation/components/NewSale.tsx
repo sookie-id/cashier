@@ -100,9 +100,13 @@ export default function NewSale({
             type="number"
             min="0"
             max="100"
-            onChange={(value) => setDiscount(Number(value))}
+            onChangeValue={(value) => setDiscount(Number(value))}
           ></Input>
-          <Input label="Phone Number" type="tel" onChange={setPhone}></Input>
+          <Input
+            label="Phone Number"
+            type="tel"
+            onChangeValue={setPhone}
+          ></Input>
         </InputContainer>
         <SubmitButton type="submit">Create Sale</SubmitButton>
       </form>

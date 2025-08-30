@@ -1,7 +1,7 @@
-import { supabase } from "../../shared/lib/supabase";
+import { authClient } from "../persistence/auth-client";
 
 export async function login(email: string, password: string) {
-  const { data, error } = await supabase.auth.signInWithPassword({
+  const { data, error } = await authClient.signInWithPassword({
     email,
     password,
   });

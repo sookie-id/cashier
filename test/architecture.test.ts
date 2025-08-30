@@ -8,6 +8,16 @@ describe("architecture", () => {
   // architecture tests can take a while to finish
   jest.setTimeout(60000);
 
+  it("presentation should not depend on the persistence", async () => {
+    const rule = filesOfProject()
+      .inFolder("presentation")
+      .shouldNot()
+      .dependOnFiles()
+      .inFolder("persistence");
+
+    await expect(rule).toPassAsync();
+  });
+
   it("workflow should not depend on the presentation", async () => {
     const rule = filesOfProject()
       .inFolder("workflow")
@@ -34,6 +44,35 @@ describe("architecture", () => {
       .shouldNot()
       .dependOnFiles()
       .inFolder("workflow");
+
+    await expect(rule).toPassAsync();
+  });
+
+  it("api should not depend on the presentation", async () => {
+    const rule = filesOfProject()
+      .inFolder("api")
+      .shouldNot()
+      .dependOnFiles()
+      .inFolder("presentation");
+
+    await expect(rule).toPassAsync();
+  });
+
+  it("api should not depend on the persistence", async () => {
+    const rule = filesOfProject()
+      .inFolder("api")
+      .shouldNot()
+      .dependOnFiles()
+      .inFolder("persistence");
+
+    await expect(rule).toPassAsync();
+  });
+
+  it("api should be cycle free", async () => {
+    const rule = filesOfProject()
+      .inFolder("api")
+      .should()
+      .beFreeOfCycles();
 
     await expect(rule).toPassAsync();
   });

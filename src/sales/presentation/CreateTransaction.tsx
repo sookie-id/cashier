@@ -2,9 +2,9 @@ import { useEffect, useState, type JSX } from "react";
 import { redirect } from "react-router";
 import { userLoggedIn } from "../../auth/api/user-logged-in";
 import { getProducts } from "../../product/api/get-products";
-import type { Product, ReceiptData } from "../../types/presentation.types";
 import NewSale from "./components/NewSale";
 import Receipt from "./components/Receipt";
+import type { Product, ReceiptData } from "./types";
 
 export async function clientLoader() {
   const user_logged_in = await userLoggedIn();

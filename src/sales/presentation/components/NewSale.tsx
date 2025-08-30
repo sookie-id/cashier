@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useTheme } from "styled-components";
 import {
   DecrementButton,
   IncrementButton,
@@ -7,6 +6,7 @@ import {
 import Input from "../../../shared/components/Input";
 import {
   DoubleColumnMenuContainer,
+  H1,
   InputContainer,
   MenuTable,
   PageContainer,
@@ -33,8 +33,6 @@ export default function NewSale({
 }) {
   const [quantities, setQuantities] = useState(Array(itemList.length).fill(0));
   const [discount, setDiscount] = useState(0);
-
-  const theme = useTheme();
 
   const handleQuantityChange = (index: number, delta: number) => {
     setQuantities((prev) =>
@@ -72,6 +70,7 @@ export default function NewSale({
 
   return (
     <PageContainer>
+      <H1>Menu</H1>
       <SingleColumnMenuContainer>
         <MenuColumn
           items={itemList}

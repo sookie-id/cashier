@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import { PrimaryButton } from "../../../shared/components/Button.styled";
+import { PrimaryButton } from "../../shared/components/Button.styled";
 
 export const PageContainer = styled.div`
-  max-width: ${({ theme }) => theme.spacing[1600]};
+  max-width: ${({ theme }) => theme.spacing[1700]};
   margin: ${({theme}) => theme.spacing[500]} auto;
   background: white;
   padding: ${({ theme }) => theme.spacing[500] + ' ' + theme.spacing[800]};

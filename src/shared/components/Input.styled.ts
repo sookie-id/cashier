@@ -28,7 +28,7 @@ export const Label = styled.label`
   background: white;
   padding: 0 ${({ theme }) => theme.spacing[100]};
   color: ${({ theme }) => theme.color.grey[700]};
-  font-size: ${({theme}) => theme.spacing[400]};
+  font-size: ${({theme}) => theme.spacing[300]};
   pointer-events: none;
   transition: 0.2s ease all;
 

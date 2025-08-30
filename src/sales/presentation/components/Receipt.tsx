@@ -5,7 +5,7 @@ import {
   SecondaryButton,
   WhatsAppButton,
 } from "../../../shared/components/Button.styled";
-import type { ReceiptData } from "../../../types/presentation.types";
+import type { ReceiptData } from "../types";
 import logo from "./logo.png";
 import {
   ButtonContainer,

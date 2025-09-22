@@ -6,7 +6,7 @@ import {
   WhatsAppButton,
 } from "../../../shared/components/Button.styled";
 import type { ReceiptData } from "../types";
-import logo from "./logo.png";
+import logo from "../../../assets/logo.png";
 import {
   ButtonContainer,
   DateTimeContainer,

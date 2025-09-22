@@ -1,18 +1,20 @@
 import {
   Links,
   Meta,
-  NavLink,
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLocation,
 } from "react-router";
 import { ThemeProvider } from "styled-components";
 import { GlobalStyle } from "./GlobalStyle";
 import NavBar from "./NavBar";
 import { appTheme } from "./theme";
-import styled from "styled-components";
 
 export function Layout({ children }: { children: React.ReactNode }) {
+  const location = useLocation();
+  const hideNav = location.pathname === "/login";
+
   return (
     <html lang="en">
       <head>
@@ -31,7 +33,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <body>
         <ThemeProvider theme={appTheme}>
           <GlobalStyle />
-          <NavBar />
+          {!hideNav && <NavBar />}
           {children}
         </ThemeProvider>
         <ScrollRestoration />

@@ -12,6 +12,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@floating-ui/react": "^0.27.16",
     "@react-router/node": "^7.8.1",
     "@supabase/supabase-js": "^2.55.0",
     "html2canvas": "^1.4.1",

@@ -24,19 +24,17 @@ const MenuContainer = styled.div`
   gap: ${({ theme }) => theme.spacing[500]};
 `;
 
-export const SingleColumnMenuContainer = styled(MenuContainer)`
-  justify-content: center;
-  @media (width > ${({theme}) => theme.spacing[1600]}) {
-    display: none
-  }
-`;
-
-export const DoubleColumnMenuContainer = styled(MenuContainer)`
+export const ResponsiveMenuContainer = styled(MenuContainer)`
   display: flex;
+  flex-direction: column;
   gap: ${({ theme }) => theme.spacing[500]};
-  justify-content: space-between;
-  @media (max-width: ${({theme}) => theme.spacing[1600]}) {
-    display: none
+
+  @media (min-width: ${({theme}) => theme.spacing[1600]}) {
+    flex-direction: row;
+    justify-content: space-between;
+      & > * {
+      flex: 1; /* make columns equal width */
+    }
   }
 `;
 

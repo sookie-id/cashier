@@ -25,16 +25,11 @@ const MenuContainer = styled.div`
 `;
 
 export const ResponsiveMenuContainer = styled(MenuContainer)`
-  display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => theme.spacing[500]};
 
   @media (min-width: ${({theme}) => theme.spacing[1600]}) {
     flex-direction: row;
     justify-content: space-between;
-      & > * {
-      flex: 1; /* make columns equal width */
-    }
   }
 `;
 

@@ -1,5 +1,5 @@
-import { useLayoutEffect, useRef, useState } from "react";
-import { P, StyledInput } from "./EditableText.styled";
+import { useRef, useState } from "react";
+import { EditableP, P } from "./EditableText.styled";
 
 function EditableText({
   formatDisplayValue,
@@ -12,16 +12,9 @@ function EditableText({
 }) {
   const [isEditing, setIsEditing] = useState(false);
   const [value, setValue] = useState(props.value);
-  const [width, setWidth] = useState<number | undefined>(undefined);
 
   const inputRef: React.Ref<HTMLInputElement> = useRef(null); // To focus the input
   const textRef = useRef<HTMLParagraphElement>(null);
-
-  useLayoutEffect(() => {
-    if (textRef.current) {
-      setWidth(textRef.current.offsetWidth + 30);
-    }
-  }, [value]);
 
   const handleTextClick: React.MouseEventHandler<HTMLParagraphElement> = () => {
     setIsEditing(true);
@@ -54,21 +47,22 @@ function EditableText({
     setValue(value);
   };
 
+  const { className, ...restProps } = props;
+
   return (
-    <div>
+    <div className={className}>
       {isEditing ? (
-        <StyledInput
+        <EditableP
           label=""
           ref={inputRef}
           onChangeValue={handleChangeValue}
           onBlur={handleInputBlur}
           onKeyDown={handleKeyPress}
-          {...props}
+          {...restProps}
           value={value}
-          style={{ width }}
         />
       ) : (
-        <P ref={textRef} onClick={handleTextClick} style={{ width }}>
+        <P ref={textRef} onClick={handleTextClick}>
           {formatDisplayValue ? formatDisplayValue(value) : value}
         </P>
       )}

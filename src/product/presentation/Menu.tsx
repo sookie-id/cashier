@@ -1,10 +1,9 @@
-import { autoUpdate, size, useFloating } from "@floating-ui/react";
+import { size, useFloating } from "@floating-ui/react";
 import { useEffect, useState } from "react";
 import EditableText from "../../shared/components/EditableText";
 import {
   IconCheveronDown,
   IconCheveronUp,
-  IconVisible,
 } from "../../shared/components/Icon.styled";
 import Input from "../../shared/components/Input";
 import { getProducts } from "../api/get-products";
@@ -27,11 +26,9 @@ export default function Menu() {
   const [productName, setProductName] = useState("");
   const [price, setPrice] = useState(0);
   const [openVariationModal, setOpenVariationModal] = useState(false);
+
   const { refs: variationModalRefs, floatingStyles } = useFloating({
-    whileElementsMounted: autoUpdate,
     placement: "bottom",
-    strategy: "fixed",
-    transform: false,
     middleware: [
       size({
         apply({ rects, elements }) {
@@ -52,18 +49,9 @@ export default function Menu() {
     }
   };
 
-  const handleCloseDropdown = (
-    event: React.MouseEvent<HTMLAnchorElement>
-  ): void => {
+  const handleCloseDropdown = (): void => {
     setOpenVariationModal(false);
   };
-
-  // Close variation modal on screen resize
-  useEffect(() => {
-    const handleResize = () => setOpenVariationModal(false);
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
 
   useEffect(() => {
     fetchProducts();
@@ -145,11 +133,20 @@ function MenuColumn({
   items: Product[];
   startIndex: number;
   onClickDropdown: (event: React.MouseEvent<HTMLAnchorElement>) => void;
-  onCloseDropdown: (event: React.MouseEvent<HTMLAnchorElement>) => void;
+  onCloseDropdown: () => void;
 }) {
   const [dropdownActiveIndex, setDropdownActiveIndex] = useState<number | null>(
     null
   );
+
+  // Close variation modal on screen resize
+  useEffect(() => {
+    const handleResize = () => {
+      handleCloseDropdown();
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const handleClickDropdown = (
     event: React.MouseEvent<HTMLAnchorElement>,
@@ -159,11 +156,9 @@ function MenuColumn({
     onClickDropdown(event);
   };
 
-  const handleCloseDropdown = (
-    event: React.MouseEvent<HTMLAnchorElement>
-  ): void => {
+  const handleCloseDropdown = (): void => {
     setDropdownActiveIndex(null);
-    onCloseDropdown(event);
+    onCloseDropdown();
   };
 
   return (
@@ -180,7 +175,7 @@ function MenuColumn({
                   })
                 }
                 value={item.name}
-              ></EditableText>
+              />
             </td>
             <td>
               <EditableText
@@ -199,12 +194,12 @@ function MenuColumn({
                 }
                 value={item.price.toString()}
                 step="1000"
-              ></EditableText>
+              />
             </td>
             <td>
-              <a href="#">
+              {/* <a href="#">
                 <IconVisible width={24} />
-              </a>
+              </a> */}
               {/* <a href="#">
                 <IconHidden width={24} />
               </a> */}

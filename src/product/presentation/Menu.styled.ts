@@ -6,7 +6,7 @@ export const PageContainer = styled.div`
   margin: ${({theme}) => theme.spacing[500]} auto;
   background: white;
   padding: ${({ theme }) => theme.spacing[500] + ' ' + theme.spacing[800]};
-  box-sizing: content-box;
+  box-sizing: border-box;
   border-radius: ${({ theme }) => theme.spacing[100]};
 
   @media (max-width: ${({ theme }) => theme.spacing[1600]}) {
@@ -35,6 +35,7 @@ export const ResponsiveMenuContainer = styled(MenuContainer)`
 
 export const MenuTable = styled.table`
   max-width: ${({ theme }) => theme.spacing[1400]};
+  flex: 1;
 
   th,
   td {

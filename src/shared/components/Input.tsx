@@ -12,14 +12,15 @@ export default function Input({
   ref?: React.Ref<HTMLInputElement>;
 }) {
   const id = useId();
+  const { className, ...restProps } = props;
 
   return (
-    <InputContainer className={props.className}>
+    <InputContainer className={className}>
       <StyledInput
         id={id}
         onChange={(e) => onChangeValue(e.target.value)}
         ref={ref}
-        {...props}
+        {...restProps}
       />
       <Label htmlFor={id}>{label}</Label>
     </InputContainer>

@@ -1,3 +1,4 @@
+import { IconAdd } from "../../shared/components/Icon.styled";
 import { VariationModalContainer } from "./VariationModal.styled";
 
 export default function VariationModal({
@@ -10,6 +11,9 @@ export default function VariationModal({
   return (
     <VariationModalContainer style={style} ref={ref}>
       VariationModal
+    <a onClick={() => {}}>
+        <IconAdd width={24} />
+    </a>
     </VariationModalContainer>
   );
 }

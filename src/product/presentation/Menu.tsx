@@ -147,19 +147,22 @@ function MenuColumn({
   onClickDropdown: (event: React.MouseEvent<HTMLAnchorElement>) => void;
   onCloseDropdown: (event: React.MouseEvent<HTMLAnchorElement>) => void;
 }) {
-  const [dropdownActive, setDropdownActive] = useState(false);
+  const [dropdownActiveIndex, setDropdownActiveIndex] = useState<number | null>(
+    null
+  );
 
   const handleClickDropdown = (
-    event: React.MouseEvent<HTMLAnchorElement>
+    event: React.MouseEvent<HTMLAnchorElement>,
+    index: number
   ): void => {
-    setDropdownActive(true);
+    setDropdownActiveIndex(index);
     onClickDropdown(event);
   };
 
   const handleCloseDropdown = (
     event: React.MouseEvent<HTMLAnchorElement>
   ): void => {
-    setDropdownActive(false);
+    setDropdownActiveIndex(null);
     onCloseDropdown(event);
   };
 
@@ -205,12 +208,12 @@ function MenuColumn({
               {/* <a href="#">
                 <IconHidden width={24} />
               </a> */}
-              {!dropdownActive && (
-                <a onClick={handleClickDropdown}>
+              {index !== dropdownActiveIndex && (
+                <a onClick={(event) => handleClickDropdown(event, index)}>
                   <IconCheveronDown width={24} />
                 </a>
               )}
-              {dropdownActive && (
+              {index === dropdownActiveIndex && (
                 <a onClick={handleCloseDropdown}>
                   <IconCheveronUp width={24} />
                 </a>

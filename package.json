@@ -6,6 +6,7 @@
   "scripts": {
     "start": "vite",
     "build": "rm -rf build && npx react-router build && cp build/client/index.html build/client/404.html",
+    "gen:db-types": "sh generate-db-types.sh",
     "preview": "vite preview",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build/client",
@@ -33,7 +34,7 @@
     "@vitejs/plugin-react-swc": "^4.0.0",
     "gh-pages": "^6.3.0",
     "jest": "^30.0.5",
-    "supabase": "^2.34.3",
+    "supabase": "^2.45.5",
     "ts-jest": "^29.4.1",
     "tsarch": "^5.4.1",
     "typescript": "^5.9.2",

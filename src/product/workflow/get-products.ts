@@ -1,5 +1,5 @@
-import { getProducts as getProductsFromDB } from "../persistence/get-products"
+import { fetchData } from "../persistence/fetch-data";
 
 export async function getProducts() {
-    return await getProductsFromDB()
+  return await fetchData("products");
 }

@@ -8,7 +8,7 @@ type FetchVariantAttributesReturn = Tables<"variant_attributes">[]
 
 **Cause:** Generated non-public schema data type has the type DefaultSchema pointing to public
 
-**Fix:** Manually change type DefaultSchema to intended schema
+**Fix:** Change type DefaultSchema to intended schema, already done in `generate-db-types.sh`
 
 ### Return type not properly setup
 On creating client, specifying the schema in the option like follow is not enough.

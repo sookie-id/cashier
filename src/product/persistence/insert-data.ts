@@ -1,7 +1,7 @@
 import { databaseWriteClient } from "./database-client";
-import type { Database, TablesInsert } from "./database.types";
+import type { TableNames, TablesInsert } from "./database.types";
 
-export async function insertData<T extends keyof Database["product"]["Tables"]>(
+export async function insertData<T extends TableNames>(
   table: T,
   params: TablesInsert<T>
 ): Promise<number> {

@@ -1,5 +1,5 @@
 import { databaseReadClient } from "./database-client";
-import type { Database, Tables } from "./database.types";
+import type { TableNames, Tables } from "./database.types";
 
 type PickColumns<
   Row,
@@ -11,7 +11,7 @@ type FetchDataReturn<Row, Column extends readonly (keyof Row)[] | undefined> =
   | null;
 
 export async function fetchData<
-  Table extends keyof Database["product"]["Tables"],
+  Table extends TableNames,
   Row extends Tables<Table>,
   Column extends Extract<keyof Row, string>[] | undefined = undefined,
 >(

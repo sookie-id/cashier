@@ -1,3 +1,4 @@
+import type { QueryData } from "@supabase/supabase-js";
 import { databaseReadClient } from "./database-client";
 
 const variantAttributesQuery = databaseReadClient
@@ -10,6 +11,8 @@ const variantAttributesQuery = databaseReadClient
     )
   `
   );
+
+export type VariantAttributes = QueryData<typeof variantAttributesQuery>
 
 export async function fetchVariantAttributes(
   productId: number

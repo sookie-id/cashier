@@ -1,58 +1,137 @@
-import type { TablesInsert } from "../persistence/database.types";
-import { fetchVariantAttributes } from "../persistence/fetch-variant-attributes";
+import { fetchData } from "../persistence/fetch-data";
+import {
+  fetchVariantAttributes,
+  type VariantAttributes,
+} from "../persistence/fetch-variant-attributes";
 import { insertData } from "../persistence/insert-data";
 
-export async function addVariantAttributeValue(params: {
-  product_id: number;
-  variant_attribute_id: number;
+function cartesianProduct(arrays: any[]) {
+  return arrays.reduce(
+    (acc, curr) => acc.flatMap((a: any) => curr.map((b: any) => [...a, b])),
+    [[]]
+  );
+}
+
+export async function addVariantAttributeValue({
+  productId,
+  attributeId,
+  name,
+}: {
+  productId: number;
+  attributeId: number;
   name: string;
 }): Promise<void> {
-  const insertResult = await insertData("variant_attribute_values", params);
-  if (!insertResult || insertResult.length === 0) {
-    throw new Error("Insert variant attribute values returned no rows");
+  const attributes = await fetchVariantAttributes(productId);
+  if (!attributes || attributes.length == 0) {
+    throw new Error("No variant attributes for this product");
   }
 
-  const variantAttributeValueId = insertResult[0].id;
-  const variantAttributes = await fetchVariantAttributes(params.product_id);
+  const targetAttribute = attributes.find((attr) => attr.id === attributeId);
+  if (!targetAttribute?.values || targetAttribute.values.length == 0) {
+    addFirstValueForNewAttribute({
+      productId,
+      attributeId,
+      name,
+    });
+  } else {
+    addValueForAttribute({
+      productId,
+      attributes,
+      attributeId,
+      name,
+    });
+  }
+}
 
-  const otherVariantAttributes = variantAttributes?.filter(
-    (variantAttribute) => variantAttribute.id !== params.variant_attribute_id
+async function addFirstValueForNewAttribute({
+  productId,
+  attributeId,
+  name,
+}: {
+  productId: number;
+  attributeId: number;
+  name: string;
+}) {
+  // Insert the new attribute value
+  const [{ id: attributeValueId }] = await insertData(
+    "variant_attribute_values",
+    {
+      product_id: productId,
+      variant_attribute_id: attributeId,
+      name,
+    }
   );
 
-  const newVariantValues: TablesInsert<"variant_values">[] = [];
-
-  // Add product variations for each other variant attribute
-  otherVariantAttributes?.forEach(async (otherVariantAttribute) => {
-    // Add product variations for each other variant attribute value
-    // TODO: This will only work with 2 variant attributes, what if there are > 2?
-    otherVariantAttribute.values.forEach(async (otherVariantAttributeValue) => {
-      const insertResult = await insertData("variants", {
-        product_id: params.product_id,
-      });
-
-      if (!insertResult || insertResult.length === 0) {
-        throw new Error("Insert variants returned no rows");
-      }
-
-      const variantId = insertResult[0].id;
-
-      // Add the new variant attribute value to the variant
-      newVariantValues.push({
-        product_id: params.product_id,
-        variant_attribute_id: params.variant_attribute_id,
-        variant_attribute_value_id: variantAttributeValueId,
-        variant_id: variantId,
-      });
-
-      // Add the other variant attribute value to the variant
-      newVariantValues.push({
-        product_id: params.product_id,
-        variant_attribute_id: otherVariantAttribute.id,
-        variant_attribute_value_id: otherVariantAttributeValue.id,
-        variant_id: variantId,
-      });
-    });
+  // Fetch all variants
+  let variants = await fetchData("variants", {
+    filter: { product_id: productId },
+    columns: ["id"],
   });
 
-  await insertData("variant_values", newVariantValues);
+  // Create a variant if there is no variant yet
+  if (!variants) {
+    variants = await insertData("variants", {
+      product_id: productId,
+    });
+  }
+
+  // Insert the new attribute value to every variant
+  for (const variant of variants) {
+    await insertData("variant_values", {
+      product_id: productId,
+      variant_id: variant.id,
+      variant_attribute_id: attributeId,
+      variant_attribute_value_id: attributeValueId,
+    });
+  }
+}
+
+async function addValueForAttribute({
+  productId,
+  attributes,
+  attributeId,
+  name,
+}: {
+  productId: number;
+  attributeId: number;
+  name: string;
+  attributes: VariantAttributes;
+}) {
+  // Insert the new attribute value
+  const [{ id: attributeValueId }] = await insertData(
+    "variant_attribute_values",
+    {
+      product_id: productId,
+      variant_attribute_id: attributeId,
+      name,
+    }
+  );
+
+  // Create attribute value matrix
+  const attributeValueMatrix = attributes.map((attr) => {
+    // Only return the new attribute value for the target attribute
+    if (attr.id === attributeId) {
+      return [attributeValueId];
+    }
+    return attr.values.map((v) => v.id);
+  });
+
+  // Create new permutations for attribute values
+  const permutations = cartesianProduct(attributeValueMatrix);
+
+  // For every new permutation, create new variant
+  for (const permutation of permutations) {
+    const [variant] = await insertData("variants", {
+      product_id: productId,
+    });
+
+    for (let i = 0; i < permutation.length; i++) {
+      await insertData("variant_values", {
+        product_id: productId,
+        variant_id: variant.id,
+        variant_attribute_id: attributes[i]!.id,
+        variant_attribute_value_id: permutation[i],
+      });
+    }
+  }
 }

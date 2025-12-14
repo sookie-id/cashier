@@ -9,5 +9,10 @@ export async function insertData<T extends TableNames>(
     .from(table)
     .insert(params)
     .select();
+
+  if (!data) {
+    throw new Error(`Insert ${table} returned no rows`);
+  }
+
   return data;
 }

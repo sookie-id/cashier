@@ -1,20 +1,5 @@
-import { fetchData } from "../persistence/fetch-data";
+import { fetchVariantAttributes } from "../persistence/fetch-variant-attributes";
 
-export async function getVariantAttributes(productId: number): Promise<
-  {
-    id: number;
-    name: string;
-    // values: {
-    //   id: number;
-    //   name: string;
-    // }[];
-  }[] | null
-> {
-  const variantAttributes = await fetchData("variant_attributes", {
-    filter: { product_id: productId },
-    columns: ["id", "name"],
-  });
-
-  return variantAttributes
-  variantAttributes?.forEach((variantAttribute) => {});
+export async function getVariantAttributes(productId: number) {
+  return await fetchVariantAttributes(productId)
 }

@@ -1,22 +1,39 @@
 import { databaseClient } from "./database-client";
 import type { Database } from "./database.types";
 
-export async function fetchData<T extends keyof Database["product"]["Tables"]>(
-  table: T,
+type PickColumns<
+  Row,
+  Column extends readonly (keyof Row)[] | undefined,
+> = Column extends readonly (keyof Row)[] ? Pick<Row, Column[number]> : Row;
+
+type FetchDataReturn<Row, Column extends readonly (keyof Row)[] | undefined> =
+  | PickColumns<Row, Column>[]
+  | null;
+
+export async function fetchData<
+  Table extends keyof Database["product"]["Tables"],
+  Row extends Database["product"]["Tables"][Table]["Row"],
+  Column extends Extract<keyof Row, string>[] | undefined = undefined,
+>(
+  table: Table,
   {
     filter,
-    order = { column: "id", ascending: true },
+    order = { column: "id" as Extract<keyof Row, string>, ascending: true },
+    columns,
   }: {
-    filter?: Partial<Database["product"]["Tables"][T]["Row"]>;
+    filter?: Partial<Row>;
     order?: {
-      column: keyof Database["product"]["Tables"][T]["Row"] & string;
+      column: Extract<keyof Row, string>;
       ascending: boolean;
     };
+    columns?: Column;
   } = {}
-): Promise<Database["product"]["Tables"]["products"]["Row"][] | null> {
+): Promise<FetchDataReturn<Row, Column>> {
+  let selectParams = columns && columns.length > 0 ? columns.join(",") : "*";
+
   let selectQuery = databaseClient
     .from(table)
-    .select()
+    .select(selectParams)
     .order(order.column, { ascending: order.ascending });
 
   if (filter) {
@@ -26,5 +43,5 @@ export async function fetchData<T extends keyof Database["product"]["Tables"]>(
   }
   const { data } = await selectQuery;
 
-  return data;
+  return data as FetchDataReturn<Row, Column>;
 }

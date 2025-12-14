@@ -13,6 +13,7 @@ export async function addVariantAttributeValue(params: {
 
   const variantAttributes = await fetchData("variant_attributes", {
     filter: { product_id: params.product_id },
+    // include: { variant_attribute_values: ['id']}
   });
 
   const otherVariantAttributes = variantAttributes?.filter(

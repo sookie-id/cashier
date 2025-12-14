@@ -1,4 +1,4 @@
-import { databaseClient } from "./database-client";
+import { databaseReadClient } from "./database-client";
 import type { Database } from "./database.types";
 
 type PickColumns<
@@ -31,7 +31,7 @@ export async function fetchData<
 ): Promise<FetchDataReturn<Row, Column>> {
   let selectParams = columns && columns.length > 0 ? columns.join(",") : "*";
 
-  let selectQuery = databaseClient
+  let selectQuery = databaseReadClient
     .from(table)
     .select(selectParams)
     .order(order.column, { ascending: order.ascending });

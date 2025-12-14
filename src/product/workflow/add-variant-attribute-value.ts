@@ -1,4 +1,5 @@
 import { fetchData } from "../persistence/fetch-data";
+import { fetchVariantAttributes } from "../persistence/fetch-variant-attributes";
 import { insertData } from "../persistence/insert-data";
 
 export async function addVariantAttributeValue(params: {
@@ -11,10 +12,7 @@ export async function addVariantAttributeValue(params: {
     params
   );
 
-  const variantAttributes = await fetchData("variant_attributes", {
-    filter: { product_id: params.product_id },
-    // include: { variant_attribute_values: ['id']}
-  });
+  const variantAttributes = await fetchVariantAttributes(params.product_id);
 
   const otherVariantAttributes = variantAttributes?.filter(
     (variantAttribute) => variantAttribute.id !== params.variant_attribute_id

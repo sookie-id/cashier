@@ -1,10 +1,13 @@
-import { databaseClient } from "./database-client";
-import type { Database } from "./database.types";
+import { databaseWriteClient } from "./database-client";
+import type { Database, TablesInsert } from "./database.types";
 
 export async function insertData<T extends keyof Database["product"]["Tables"]>(
   table: T,
-  params: Database["product"]["Tables"][T]["Insert"]
+  params: TablesInsert<T>
 ): Promise<number> {
-  const { data } = await databaseClient.from(table).insert(params).select();
+  const { data } = await databaseWriteClient
+    .from(table)
+    .insert(params)
+    .select();
   return data?.[0]?.id;
 }

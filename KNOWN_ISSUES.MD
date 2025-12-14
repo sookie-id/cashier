@@ -13,7 +13,7 @@ type FetchVariantAttributesReturn = Tables<"variant_attributes">[]
 ### Return type not properly setup
 On creating client, specifying the schema in the option like follow is not enough.
 ```
-export const databaseClient = createClient<Database>(
+export const databaseReadClient = createClient<Database>(
   supabaseUrl,
   supabaseAnonKey,
   {
@@ -26,7 +26,7 @@ export const databaseClient = createClient<Database>(
 
 It will result in this `data` to have type of `any[] | null`
 ```
-const { data } = await databaseClient
+const { data } = await databaseReadClient
   .from("variant_attributes")
   .select();
 ```
@@ -35,7 +35,7 @@ const { data } = await databaseClient
 
 **Fix:** Specify schema explicitly with the function `schema` like follow
 ```
-export const databaseClient = createClient<Database>(
+export const databaseReadClient = createClient<Database>(
   supabaseUrl,
   supabaseAnonKey,
   {
@@ -44,4 +44,30 @@ export const databaseClient = createClient<Database>(
     },
   }
 ).schema("product");
+```
+### Params type error in update and insert
+**Cause:** Explicitly specify schema with the function `schema` like follow
+```
+export const databaseWriteClient = createClient<Database>(
+  supabaseUrl,
+  supabaseAnonKey,
+  {
+    db: {
+      schema: "product" as any,
+    },
+  }
+).schema("product");
+```
+
+**Fix:** Only specify schema in the options like follow
+```
+export const databaseWriteClient = createClient<Database>(
+  supabaseUrl,
+  supabaseAnonKey,
+  {
+    db: {
+      schema: "product" as any,
+    },
+  }
+);
 ```

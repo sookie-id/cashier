@@ -1,14 +1,16 @@
 import type { QueryData } from "@supabase/supabase-js";
-import { databaseClient } from "./database-client";
+import { databaseReadClient } from "./database-client";
 
-const variantAttributesQuery = databaseClient.from("variant_attributes").select(
-  `
+const variantAttributesQuery = databaseReadClient
+  .from("variant_attributes")
+  .select(
+    `
     id, name,
-    variant_attribute_values (
+    values: variant_attribute_values (
       id, name
     )
   `
-);
+  );
 
 type FetchVariantAttributesReturn = QueryData<
   typeof variantAttributesQuery

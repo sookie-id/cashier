@@ -1,4 +1,3 @@
-import type { QueryData } from "@supabase/supabase-js";
 import { databaseReadClient } from "./database-client";
 
 const variantAttributesQuery = databaseReadClient
@@ -12,13 +11,9 @@ const variantAttributesQuery = databaseReadClient
   `
   );
 
-type FetchVariantAttributesReturn = QueryData<
-  typeof variantAttributesQuery
-> | null;
-
 export async function fetchVariantAttributes(
   productId: number
-): Promise<FetchVariantAttributesReturn> {
+) {
   const { data } = await variantAttributesQuery
     .order("id", { ascending: true })
     .eq("product_id", productId);

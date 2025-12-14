@@ -1,4 +1,4 @@
-import { fetchData } from "../persistence/fetch-data";
+import type { TablesInsert } from "../persistence/database.types";
 import { fetchVariantAttributes } from "../persistence/fetch-variant-attributes";
 import { insertData } from "../persistence/insert-data";
 
@@ -7,31 +7,37 @@ export async function addVariantAttributeValue(params: {
   variant_attribute_id: number;
   name: string;
 }): Promise<void> {
-  const variantAttributeValueId = await insertData(
-    "variant_attribute_values",
-    params
-  );
+  const insertResult = await insertData("variant_attribute_values", params);
+  if (!insertResult || insertResult.length === 0) {
+    throw new Error("Insert variant attribute values returned no rows");
+  }
 
+  const variantAttributeValueId = insertResult[0].id;
   const variantAttributes = await fetchVariantAttributes(params.product_id);
 
   const otherVariantAttributes = variantAttributes?.filter(
     (variantAttribute) => variantAttribute.id !== params.variant_attribute_id
   );
 
+  const newVariantValues: TablesInsert<"variant_values">[] = [];
+
   // Add product variations for each other variant attribute
   otherVariantAttributes?.forEach(async (otherVariantAttribute) => {
-    const variantAttributeValues = await fetchData("variant_attribute_values", {
-      filter: { variant_attribute_id: otherVariantAttribute.id },
-    });
-
     // Add product variations for each other variant attribute value
-    variantAttributeValues?.forEach(async (otherVariantAttributeValue) => {
-      const variantId = await insertData("variants", {
+    // TODO: This will only work with 2 variant attributes, what if there are > 2?
+    otherVariantAttribute.values.forEach(async (otherVariantAttributeValue) => {
+      const insertResult = await insertData("variants", {
         product_id: params.product_id,
       });
 
+      if (!insertResult || insertResult.length === 0) {
+        throw new Error("Insert variants returned no rows");
+      }
+
+      const variantId = insertResult[0].id;
+
       // Add the new variant attribute value to the variant
-      await insertData("variant_values", {
+      newVariantValues.push({
         product_id: params.product_id,
         variant_attribute_id: params.variant_attribute_id,
         variant_attribute_value_id: variantAttributeValueId,
@@ -39,7 +45,7 @@ export async function addVariantAttributeValue(params: {
       });
 
       // Add the other variant attribute value to the variant
-      await insertData("variant_values", {
+      newVariantValues.push({
         product_id: params.product_id,
         variant_attribute_id: otherVariantAttribute.id,
         variant_attribute_value_id: otherVariantAttributeValue.id,
@@ -47,4 +53,6 @@ export async function addVariantAttributeValue(params: {
       });
     });
   });
+
+  await insertData("variant_values", newVariantValues);
 }

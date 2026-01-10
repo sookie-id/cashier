@@ -1,7 +1,7 @@
 import { size, useFloating } from "@floating-ui/react";
 import { useEffect, useState } from "react";
 import Input from "../../shared/components/Input";
-import { getProducts } from "../workflow/get-products";
+import { getProducts, type Product } from "../workflow/get-products";
 import { addProduct } from "../workflow/add-product";
 import {
   H1,
@@ -11,7 +11,6 @@ import {
   SubmitButton,
 } from "./Menu.styled";
 import { MenuColumn } from "./MenuColumn";
-import type { Product } from "./types";
 import VariationModal from "./VariationModal";
 
 export default function Menu() {

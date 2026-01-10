@@ -6,7 +6,7 @@ import {
 } from "../../shared/components/Icon.styled";
 import { updateProduct } from "../workflow/update-product";
 import { MenuTable } from "./Menu.styled";
-import type { Product } from "./types";
+import type { Product } from "../workflow/get-products";
 
 export function MenuColumn({
   products,

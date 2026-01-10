@@ -28,7 +28,7 @@ export default function VariationModal({
 
   useEffect(() => {
     fetchVariantAttributes();
-  }, []);
+  }, [productId]);
 
   const fetchVariantAttributes = async () => {
     const variantAttributes = await getVariantAttributes(productId);

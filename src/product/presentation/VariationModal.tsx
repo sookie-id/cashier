@@ -2,15 +2,17 @@ import { useEffect, useState } from "react";
 import { IconAdd } from "../../shared/components/Icon.styled";
 import type { VariantAttributes } from "../persistence/fetch-variant-attributes";
 import { addVariantAttribute } from "../workflow/add-variant-attribute";
+import { addVariantAttributeValue } from "../workflow/add-variant-attribute-value";
 import { getVariantAttributes } from "../workflow/get-variant-attributes";
+import { updateVariantAttribute } from "../workflow/update-variant-attribute";
+import { updateVariantAttributeValue } from "../workflow/update-variant-attribute-value";
 import {
   AddVariationValueChip,
-  H2,
   VariationChip,
   VariationModalContainer,
   VariationModalLink,
+  VariationTitle,
 } from "./VariationModal.styled";
-import { addVariantAttributeValue } from "../workflow/add-variant-attribute-value";
 
 export default function VariationModal({
   style,
@@ -21,7 +23,8 @@ export default function VariationModal({
   ref: React.Ref<HTMLDivElement>;
   productId: number;
 }) {
-  const [variantAttributes, setVariantAttributes] = useState<VariantAttributes | null>(null);
+  const [variantAttributes, setVariantAttributes] =
+    useState<VariantAttributes | null>(null);
 
   useEffect(() => {
     fetchVariantAttributes();
@@ -52,16 +55,32 @@ export default function VariationModal({
   return (
     <VariationModalContainer style={style} ref={ref}>
       {variantAttributes === null && <div>Loading...</div>}
-      {variantAttributes && variantAttributes.length === 0 && <div>No variations found</div>}
+      {variantAttributes && variantAttributes.length === 0 && (
+        <div>No variations found</div>
+      )}
       {variantAttributes &&
         variantAttributes.map((attribute) => (
           <div key={attribute.id} style={{ marginBottom: "16px" }}>
-            <H2>{attribute.name}</H2>
+            <VariationTitle
+              key={attribute.id}
+              value={attribute.name}
+              onSave={(name: string) =>
+                updateVariantAttribute({
+                  id: attribute.id,
+                  name,
+                })
+              }
+            />
             {attribute.values.map((value) => (
               <VariationChip
                 key={value.id}
                 value={value.name}
-                onSave={() => {}}
+                onSave={(name: string) =>
+                  updateVariantAttributeValue({
+                    id: value.id,
+                    name,
+                  })
+                }
               />
             ))}
             <AddVariationValueChip

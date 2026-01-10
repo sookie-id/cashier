@@ -40,6 +40,7 @@ function EditableText({
   ) => {
     if (event.key === "Enter") {
       setIsEditing(false);
+      onSave(event.currentTarget.value);
     }
   };
 

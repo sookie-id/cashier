@@ -4,8 +4,7 @@ import {
   IconCheveronDown,
   IconCheveronUp,
 } from "../../shared/components/Icon.styled";
-import { updateProductName } from "../workflow/update-product-name";
-import { updateProductPrice } from "../workflow/update-product-price";
+import { updateProduct } from "../workflow/update-product";
 import { MenuTable } from "./Menu.styled";
 import type { Product } from "./types";
 
@@ -21,7 +20,9 @@ export function MenuColumn({
   ) => void;
   onCloseDropdown: () => void;
 }) {
-  const [selectedProductId, setSelecteProductId] = useState<number | null>(null);
+  const [selectedProductId, setSelecteProductId] = useState<number | null>(
+    null
+  );
 
   // Close variation modal on screen resize
   useEffect(() => {
@@ -53,7 +54,7 @@ export function MenuColumn({
             <td>
               <EditableText
                 onSave={(name: string) =>
-                  updateProductName({
+                  updateProduct({
                     id: product.id,
                     name,
                   })
@@ -64,7 +65,7 @@ export function MenuColumn({
             <td>
               <EditableText
                 onSave={(price: string) =>
-                  updateProductPrice({
+                  updateProduct({
                     id: product.id,
                     price: Number(price),
                   })
